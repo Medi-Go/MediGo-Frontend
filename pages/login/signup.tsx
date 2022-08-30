@@ -1,47 +1,29 @@
+import * as yup from 'yup';
 import Image from 'next/Image';
+import { AxiosError, AxiosResponse } from 'axios';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
-import { getQueryString } from '../../utils/quertString';
 import { useFormik } from 'formik';
 import { signUp } from '../../apis/user';
+import { errorType } from '../../interfaces/error';
+import { Select } from '../../components/index';
+import { Button, CircularProgress, TextField } from '@mui/material';
+import {
+  FormContainer,
+  FormInputContainer,
+  MbtiContainer,
+  MbtiWrapper,
+  StyledForm,
+} from './style';
+import { carrierOptions } from '../../constants/selectOptions';
 
-const RegisterPageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 100px;
-`;
-
-const ServiceTitle = styled.div`
-  font-size: 40px;
-  color: navy;
-  font-weight: bold;
-`;
-
-const RegisterForm = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-const RegisterInput = styled.input`
-  margin-top: 50px;
-  width: 300px;
-  height: 40px;
-`;
-
-const RegisterBtn = styled.button`
-  margin-top: 50px;
-  height: 40px;
-  background-color: navy;
-  color: white;
-  font-weight: bold;
+const MainLogo = styled(Image)`
+  margin-top: 20px;
 `;
 
 const Signup = () => {
   const router = useRouter();
-
-  const email = getQueryString('email', 'string') + '';
+  const email: string = router.query.email;
 
   const {
     values,
@@ -51,40 +33,35 @@ const Signup = () => {
     handleSubmit,
     handleChange,
     handleBlur,
-    setFieldValue,
-    setFieldError,
   } = useFormik({
     initialValues: {
-      nickname: '',
-      field: '',
-      career: '',
-      MBTI: '',
+      name: '',
+      phoneNumber: '',
+      jumin: '',
+      carrier: '',
     },
     validationSchema: yup.object({
-      nickname: yup
+      name: yup
         .string()
         .trim('앞, 뒤 공백을 제거해주세요')
         .strict()
-        .max(16, '닉네임은 최대 16글자 까지 가능합니다.')
-        .required('닉네임을 입력해 주세요.'),
-      field: yup.string().required('직무를 입력해주세요'),
-      career: yup.string().required('경력을 입력해주세요'),
-      MBTI: yup.string().required('MBTI를 입력해주세요.'),
+        .required('이름을 입력해 주세요.'),
+      phoneNumber: yup.string().required('전화번호를 입력해주세요'),
+      jumin: yup.string().required('생년월일을 입력해주세요'),
+      carrier: yup.string().required('통신사를 입력해주세요.'),
     }),
     onSubmit: async (values) => {
       const formData = {
         email,
-        nickname: values.nickname,
-        field: values.field,
-        career: values.career,
-        MBTI: values.MBTI,
+        name: values.name,
+        phoneNumber: values.phoneNumber,
+        jumin: values.jumin,
+        carrier: values.carrier,
       };
 
       try {
         const data = await signUp(formData);
-        dispatch(loginUser(data.member));
-        setStorageItem('token', data.accesstoken);
-        navigate('/', { replace: true });
+        // navigate('/', { replace: true });
       } catch (error) {
         const { response } = error as AxiosError;
         const { data }: { data: errorType } = response as AxiosResponse;
@@ -94,43 +71,77 @@ const Signup = () => {
   });
 
   return (
-    <RegisterPageContainer>
-      <ServiceTitle>
-        <Image
-          src={'/images/mainLogo.png'}
-          width={130}
-          height={40}
-          alt={'arrowRightBtn'}
-        />
-      </ServiceTitle>
-      <RegisterForm onSubmit={handleSubmit}>
-        <RegisterInput
-          type="text"
-          placeholder="이름을 입력해주세요"
-          id="name"
-          required
-        ></RegisterInput>
-        <RegisterInput
-          type="text"
-          placeholder="핸드폰 번호를 입력해주세요 ex) 01032145464"
-          id="phoneNumber"
-          required
-        ></RegisterInput>
-        <RegisterInput
-          type="text"
-          placeholder="생년월일을 입력해주세요 ex) 19970914"
-          id="jumin"
-          required
-        ></RegisterInput>
-        <select id="carrier" name="carrier">
-          <option value="">선택하세요</option>
-          <option value="KT">KT</option>
-          <option value="SKT">SKT</option>
-          <option value="LG">LG</option>
-        </select>
-        <RegisterBtn type="submit">회원가입</RegisterBtn>
-      </RegisterForm>
-    </RegisterPageContainer>
+    <FormContainer>
+      <MainLogo
+        src={'/images/mainLogo.png'}
+        width={130}
+        height={40}
+        alt={'arrowRightBtn'}
+      />
+      <StyledForm onSubmit={handleSubmit}>
+        <FormInputContainer>
+          <TextField
+            id="name"
+            name="name"
+            label="이름*"
+            value={values.name}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.name && Boolean(errors.name)}
+            helperText={touched.name && errors.name}
+            disabled={isSubmitting}
+          />
+          <TextField
+            id="phoneNumber"
+            name="phoneNumber"
+            label="전화번호*"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.phoneNumber}
+            error={touched.phoneNumber && Boolean(errors.phoneNumber)}
+            helperText={touched.phoneNumber && errors.phoneNumber}
+            disabled={isSubmitting}
+          />
+          <TextField
+            id="jumin"
+            name="jumin"
+            label="생년월일*"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.jumin}
+            error={touched.jumin && Boolean(errors.jumin)}
+            helperText={touched.jumin && errors.jumin}
+            disabled={isSubmitting}
+          />
+          <MbtiContainer>
+            <MbtiWrapper>
+              <Select
+                id="carrier"
+                name="carrier"
+                label="통신사"
+                onChange={handleChange}
+                options={carrierOptions}
+                value={values.carrier}
+                error={touched.carrier && Boolean(errors.carrier)}
+                disabled={isSubmitting}
+                fullWidth
+              />
+            </MbtiWrapper>
+          </MbtiContainer>
+          <Button size="large" type="submit" disabled={isSubmitting} fullWidth>
+            {isSubmitting ? (
+              <CircularProgress
+                color="secondary"
+                size="1.5rem"
+                sx={{ margin: '-0.25rem' }}
+              />
+            ) : (
+              '가입하기'
+            )}
+          </Button>
+        </FormInputContainer>
+      </StyledForm>
+    </FormContainer>
   );
 };
 

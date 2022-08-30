@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 
-const host = 'http://localhost:3000';
+const host = 'http://www.medigo.p-e.kr';
 
 const API_ENDPOINT = host;
 
