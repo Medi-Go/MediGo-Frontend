@@ -1,12 +1,12 @@
 import * as yup from 'yup';
 import Image from 'next/Image';
-import { AxiosError, AxiosResponse } from 'axios';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { signUp } from '../../apis/user';
 import { errorType } from '../../interfaces/error';
 import { Select } from '../../components/index';
+import { AxiosError, AxiosResponse } from 'axios';
 import { Button, CircularProgress, TextField } from '@mui/material';
 import {
   FormContainer,
@@ -61,7 +61,8 @@ const Signup = () => {
 
       try {
         const data = await signUp(formData);
-        // navigate('/', { replace: true });
+        console.log(data);
+        router.push('/main');
       } catch (error) {
         const { response } = error as AxiosError;
         const { data }: { data: errorType } = response as AxiosResponse;
@@ -118,7 +119,7 @@ const Signup = () => {
               <Select
                 id="carrier"
                 name="carrier"
-                label="통신사"
+                label="통신사*"
                 onChange={handleChange}
                 options={carrierOptions}
                 value={values.carrier}

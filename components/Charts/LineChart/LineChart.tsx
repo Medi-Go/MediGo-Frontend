@@ -6,10 +6,10 @@ const data = [
   { name: 'Page C', uv: 200, pv: 2000, amt: 1400 },
 ];
 
-const BarChart = () => (
+const Chart = () => (
   <LineChart width={400} height={400} data={data}>
     <Line type="monotone" dataKey="uv" stroke="#8884d8" />
   </LineChart>
 );
 
-export default BarChart;
+export default Chart;
