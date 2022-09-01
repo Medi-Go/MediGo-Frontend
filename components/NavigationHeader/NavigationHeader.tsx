@@ -33,7 +33,7 @@ const Item = styled.li`
   padding: 0 20px;
 `;
 
-const Navbar: FC = () => {
+const NavigationHeader = () => {
   const router = useRouter();
 
   const routingPages = (event: Event): void => {
@@ -65,4 +65,4 @@ const Navbar: FC = () => {
   );
 };
 
-export default Navbar;
+export default NavigationHeader;

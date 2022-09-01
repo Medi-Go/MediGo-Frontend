@@ -39,19 +39,6 @@ const GoogleLoginBtn = styled.button`
   font-size: 16px;
 `;
 
-const NaverLoginBtn = styled.button`
-  border-radius: 10px;
-  border: 1px solid black;
-  width: 80%;
-  height: 40px;
-  background-color: #04cf5c;
-  font-weight: bold;
-  color: white;
-  font-size: 16px;
-  border: 0px;
-  margin-top: 20px;
-`;
-
 const Login = () => {
   const router = useRouter();
 

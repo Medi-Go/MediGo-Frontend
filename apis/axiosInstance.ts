@@ -12,6 +12,14 @@ const axiosInstance: AxiosInstance = axios.create({
   },
 });
 
+export const axiosAuthInstance: AxiosInstance = axios.create({
+  baseURL: API_ENDPOINT,
+  timeout: 5000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
 axiosInstance.interceptors.response.use(
   (response) => Promise.resolve(response),
   (error) => Promise.reject(error),

@@ -1,12 +1,15 @@
 import * as yup from 'yup';
 import Image from 'next/Image';
-import { AxiosError, AxiosResponse } from 'axios';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { signUp } from '../../apis/user';
 import { errorType } from '../../interfaces/error';
 import { Select } from '../../components/index';
+import { AxiosError, AxiosResponse } from 'axios';
+import { setStorageItem } from '../../utils/storage';
+import { loginUser } from '../../store/slices/user';
 import { Button, CircularProgress, TextField } from '@mui/material';
 import {
   FormContainer,
@@ -23,6 +26,7 @@ const MainLogo = styled(Image)`
 
 const Signup = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const email: string = router.query.email;
 
   const {
@@ -61,11 +65,14 @@ const Signup = () => {
 
       try {
         const data = await signUp(formData);
-        // navigate('/', { replace: true });
+        dispatch(loginUser(data.memberResponse));
+        setStorageItem('token', data.accessToken);
+        router.push('/main');
       } catch (error) {
         const { response } = error as AxiosError;
         const { data }: { data: errorType } = response as AxiosResponse;
         const { errorCode } = data;
+        console.log(errorCode);
       }
     },
   });
@@ -118,7 +125,7 @@ const Signup = () => {
               <Select
                 id="carrier"
                 name="carrier"
-                label="통신사"
+                label="통신사*"
                 onChange={handleChange}
                 options={carrierOptions}
                 value={values.carrier}
