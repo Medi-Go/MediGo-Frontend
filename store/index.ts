@@ -3,11 +3,12 @@ import { isDev } from '../constants/nodeEnv';
 import { createWrapper } from 'next-redux-wrapper';
 import rootReducer, { IState } from './rootReducer';
 
+const store = configureStore({
+  reducer: rootReducer as Reducer<IState, AnyAction>,
+  devTools: isDev,
+});
+
 const createStore = () => {
-  const store = configureStore({
-    reducer: rootReducer as Reducer<IState, AnyAction>,
-    devTools: isDev,
-  });
   return store;
 };
 const wrapper = createWrapper(createStore);
