@@ -16,7 +16,6 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   const router = useRouter();
-  const state = useSelector(selectFlashAlert);
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const pathname = router.pathname;
