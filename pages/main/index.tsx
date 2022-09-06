@@ -1,8 +1,12 @@
-import type { NextPage } from 'next';
 import Image from 'next/Image';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
 import MedicineList from '../../components/MedicineList';
+import { getMedicine } from '../../apis/medicine';
+import { GetStaticPropsContext } from 'next';
+import { selectMedicine, setMedicine } from '../../store/slices/medicine';
+import { useEffect } from 'react';
 
 const data = [
   {
@@ -129,8 +133,20 @@ const MainLogo = styled.div`
   width: 150px;
 `;
 
-const Main: NextPage = () => {
+const Main = ({ mainMedicines }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const {
+    value: { effect, medicines },
+  } = useSelector(selectMedicine);
+
+  useEffect(() => {
+    const getMedicineData = async () => {
+      const mainMedicines = await getMedicine();
+      console.log(mainMedicines);
+    };
+    getMedicineData();
+  }, []);
 
   return (
     <>
@@ -152,5 +168,14 @@ const Main: NextPage = () => {
     </>
   );
 };
+
+// export async function getStaticProps(context: GetStaticPropsContext) {
+//   const mainMedicines = await getMedicine();
+
+//   return {
+//     props: { mainMedicines },
+//     revalidate: 3600,
+//   };
+// }
 
 export default Main;
