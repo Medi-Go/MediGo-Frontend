@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
+import { getStorageItem } from '../utils/storage';
 
 const host = 'http://www.medigo.p-e.kr';
 
@@ -17,6 +18,7 @@ export const axiosAuthInstance: AxiosInstance = axios.create({
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
+    Authorization: `Bearer ${getStorageItem('token', '')}`,
   },
 });
 

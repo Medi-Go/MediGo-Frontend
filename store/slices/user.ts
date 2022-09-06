@@ -2,7 +2,7 @@ import { RootState } from '../index';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserType } from '../../interfaces/user';
 
-interface UserState {
+export interface UserState {
   user: UserType | null;
   isLogin: boolean;
 }
