@@ -34,16 +34,17 @@ const Layout = ({ children }: LayoutProps) => {
         const data = await getAuthUser();
         dispatch(loginUser(data));
       } catch (err) {
+        console.log(err);
         return;
       }
     };
 
     autoLogin();
-  }, []);
+  }, [pathname]);
 
   return (
     <LayoutContainer>
-      {state.show && <FlashAlert />}
+      {/* {state.show && <FlashAlert />} */}
       <NavigationHeader />
       {children}
     </LayoutContainer>
