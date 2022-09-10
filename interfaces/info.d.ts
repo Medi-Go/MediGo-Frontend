@@ -4,3 +4,10 @@ export interface InfoModalType {
   isOpen?: boolean;
   onClose?: (e: React.MouseEvent<HTMLElement>) => void;
 }
+
+export interface PrescriptionType {
+  id: number;
+  administerInterval: number;
+  dailyCount: number;
+  totalDayCount;
+}

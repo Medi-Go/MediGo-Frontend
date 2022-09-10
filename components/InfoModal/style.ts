@@ -17,7 +17,7 @@ export const CardWrapper = styled(Card)`
 `;
 
 export const ModalTextField = styled(TextField)`
-  font-size: 10px;
+  font-size: 6px;
 `;
 
 export const ModalErrorMessage = styled(Typography)`

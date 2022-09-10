@@ -2,23 +2,18 @@ import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import React, { useRef } from 'react';
 import { FormikHelpers, useFormik } from 'formik';
-import {
-  IconButton,
-  Modal,
-  Avatar,
-  CardHeader,
-  CardContent,
-  Box,
-} from '@mui/material';
+import { IconButton, Modal, CardHeader, CardContent, Box } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import { InfoModalType } from '../../interfaces/info';
-
+import { getInputInfo, patchInputInfo } from '../../apis/info';
 import {
   CardWrapper,
   ModalErrorMessage,
   SubmitModalButton,
   ModalTextField,
 } from './style';
+import { setMedicine } from '../../store/slices/medicine';
+import { PrescriptionType } from '../../interfaces/info.d';
 
 const InfoModal = ({ month, modalType, isOpen, onClose }: InfoModalType) => {
   const exitRef = useRef<any>(null);
@@ -31,42 +26,48 @@ const InfoModal = ({ month, modalType, isOpen, onClose }: InfoModalType) => {
     },
     helpers: FormikHelpers<{ month: number }>,
   ) => {
-    const postFormData = new FormData();
+    console.log(values.month);
     let returnApiData;
 
-    // postFormData.append('month', values.month);
-
-    // switch (modalType) {
-    //   case 'CREATE':
-    //     returnApiData = await postCommunityPostApi(postFormData);
-    //     dispatch(createPost(returnApiData));
-    //     break;
-    //   case 'EDIT':
-    //     returnApiData = await editCommunityPostApi(postId, postFormData);
-    //     dispatch(editPost(returnApiData));
-    //     break;
-    // }
+    switch (modalType) {
+      case 'LOAD':
+        returnApiData = await getInputInfo(values.month);
+        console.log(returnApiData);
+        // dispatch(setMedicine(returnApiData));
+        break;
+      case 'EDIT':
+        returnApiData = await patchInputInfo(values.month);
+        console.log(returnApiData);
+        // dispatch(setMedicine(returnApiData));
+        break;
+    }
 
     helpers.resetForm();
   };
 
-  const formik = useFormik({
-    initialValues: {
-      month: month || 1,
-    },
-    onSubmit: (values, helpers) => {
-      helpers.setSubmitting(true);
-      handleInfoSubmit(values, helpers);
-      exitRef.current.click();
-      helpers.setSubmitting(false);
-    },
-    validationSchema: Yup.object({
-      contents: Yup.string()
-        .max(12, '1년 이후의 데이터는 받아올 수 없습니다.')
-        .required(' 입력해주세요'),
-    }),
-    validateOnChange: true,
-  });
+  const handleClick = async (values: { month: number }) => {
+    const returnApiData = await getInputInfo(month);
+    console.log(returnApiData);
+  };
+
+  const { values, errors, isSubmitting, handleSubmit, handleChange } =
+    useFormik({
+      initialValues: {
+        month: month || 1,
+      },
+      onSubmit: (values, helpers) => {
+        helpers.setSubmitting(true);
+        handleInfoSubmit(values, helpers);
+        exitRef.current.click();
+        helpers.setSubmitting(false);
+      },
+      validationSchema: Yup.object({
+        contents: Yup.number()
+          .max(12, '1년 이후의 데이터는 받아올 수 없습니다.')
+          .required(' 입력해주세요'),
+      }),
+      validateOnChange: true,
+    });
 
   return (
     <Modal
@@ -87,26 +88,28 @@ const InfoModal = ({ month, modalType, isOpen, onClose }: InfoModalType) => {
           }
         />
         <CardContent sx={{ padding: '0 1rem 6rem' }}>
-          <form onSubmit={formik.handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <ModalTextField
               rows={1}
               placeholder="몇 달 내의 약물 데이터를 받아올지 입력해주세요(1~12 내에서 입력해주세요)"
               id="month"
-              onChange={formik.handleChange}
-              value={formik.values.month}
+              name="month"
+              onChange={handleChange}
+              value={values.month}
               fullWidth={true}
-              {...(formik.errors.month && {
+              {...(errors.month && {
                 error: true,
-                helperText: formik.errors.month,
+                helperText: errors.month,
               })}
             />
             <Box sx={{ display: 'flex' }}>
               <SubmitModalButton
                 type="submit"
                 size="medium"
-                disabled={formik.isSubmitting}
+                disabled={isSubmitting}
+                onClick={handleClick}
               >
-                입력
+                Load
               </SubmitModalButton>
             </Box>
           </form>
