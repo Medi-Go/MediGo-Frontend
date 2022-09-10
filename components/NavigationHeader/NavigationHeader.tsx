@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import type { FC } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Calendar from '../../assets/nav/calendar_nav.svg';
