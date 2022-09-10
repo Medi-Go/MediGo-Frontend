@@ -1,6 +1,6 @@
 import { RootState } from '../index';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { MainMedicineType, MedicineType } from '../../interfaces/medicine';
+import { MainMedicineType } from '../../interfaces/medicine';
 
 export interface MainMedicineState {
   value: MainMedicineType;
@@ -23,22 +23,10 @@ export const medicineSlice = createSlice({
     ) => {
       state.value = action.payload;
     },
-    editMedicine: (
-      state: MainMedicineState,
-      action: PayloadAction<MedicineType>,
-    ) => {
-      if (!action.payload || !state.value.medicines) return;
-
-      const editMedicineIndex = state.value.medicines.findIndex(
-        ({ id }) => id === action.payload.id,
-      );
-
-      state.value.medicines[editMedicineIndex] = action.payload;
-    },
   },
 });
 
 export const selectMedicine = (state: RootState) => state.medicine;
 
-export const { setMedicine, editMedicine } = medicineSlice.actions;
+export const { setMedicine } = medicineSlice.actions;
 export default medicineSlice.reducer;
