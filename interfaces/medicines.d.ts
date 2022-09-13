@@ -1,4 +1,4 @@
-export interface MedicineEffectsType {
+export interface MedicineEffectType {
   effect: string;
   medicines: MedicineType[];
 }
@@ -9,13 +9,13 @@ export interface MedicineType {
   remainCount: number;
   treatDate: number;
 }
-export interface DuplicatedMedicinesType {
+export interface DuplicatedMedicineType {
   medicineId: number;
   medicineName: string;
   duplicatedMedicineCases: DuplicatedMedicineType[];
 }
 
-export interface DuplicatedMedicineType {
+export interface DuplicatedMedicineCaseType {
   administerInterval: number;
   dailyCount: number;
   totalDayCount: number;

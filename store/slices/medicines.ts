@@ -1,13 +1,13 @@
 import { RootState } from '../index';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
-  MedicineEffectsType,
-  DuplicatedMedicinesType,
+  MedicineEffectType,
+  DuplicatedMedicineType,
 } from '../../interfaces/medicines';
 
 export interface MedicineState {
-  medicineEffects: MedicineEffectsType[];
-  duplicatedMedicines: DuplicatedMedicinesType[];
+  medicineEffects: MedicineEffectType[];
+  duplicatedMedicines: DuplicatedMedicineType[];
 }
 
 const initialState: MedicineState = {
