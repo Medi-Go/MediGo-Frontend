@@ -40,7 +40,7 @@ const Input = () => {
     const prescriptionsData = [];
     prescriptions.map((prescription) => {
       prescriptionsData.push({
-        id: prescription.prescriptionId,
+        prescriptionId: prescription.prescriptionId,
         administerInterval: getPrescriptionInputValue(
           `#administerInterval-${prescription.prescriptionId}`,
         ),
@@ -60,6 +60,7 @@ const Input = () => {
 
   const getPrescriptions = async () => {
     const data = await getInputInfo(month);
+    console.log('data', data);
     setPrescription(data.prescriptions);
   };
 

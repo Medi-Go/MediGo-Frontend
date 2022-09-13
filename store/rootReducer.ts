@@ -1,16 +1,14 @@
-import medicine, { MainMedicineState } from './slices/medicine';
+import medicines, { MyMedicineState } from './slices/medicines';
 import { AnyAction, CombinedState, combineReducers } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
-import { UserState } from './slices/user';
-import { AlertState } from './slices/flashAlert';
+import user, { UserState } from './slices/user';
+import flashAlert, { AlertState } from './slices/flashAlert';
 import prescription, { PrescriptionState } from './slices/prescription';
-import user from './slices/user';
-import flashAlert from './slices/flashAlert';
 
 export interface IState {
   user: UserState;
   flashAlert: AlertState;
-  medicine: MainMedicineState;
+  medicines: MyMedicineState;
   prescription: PrescriptionState;
 }
 
@@ -25,7 +23,7 @@ const rootReducer = (
       const combinedReducer = combineReducers({
         user: user,
         flashAlert: flashAlert,
-        medicine: medicine,
+        medicines: medicines,
         prescription: prescription,
       });
       return combinedReducer(state, action);
