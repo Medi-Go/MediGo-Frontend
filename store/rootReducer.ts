@@ -1,4 +1,4 @@
-import medicines, { MyMedicineState } from './slices/medicine';
+import medicines, { MyMedicineState } from './slices/medicines';
 import { AnyAction, CombinedState, combineReducers } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import user, { UserState } from './slices/user';

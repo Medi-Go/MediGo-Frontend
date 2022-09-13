@@ -2,17 +2,15 @@ import { RootState } from '../index';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   MedicineEffectsType,
-  MedicineType,
   DuplicatedMedicinesType,
-  DuplicatedMedicineType,
-} from '../../interfaces/medicine';
+} from '../../interfaces/medicines';
 
-export interface MyMedicineState {
+export interface MedicineState {
   medicineEffects: MedicineEffectsType[];
   duplicatedMedicines: DuplicatedMedicinesType[];
 }
 
-const initialState: MyMedicineState = {
+const initialState: MedicineState = {
   medicineEffects: [],
   duplicatedMedicines: [],
 };
@@ -22,8 +20,8 @@ export const medicineSlice = createSlice({
   initialState,
   reducers: {
     setMyMedicines: (
-      state: MyMedicineState,
-      action: PayloadAction<MyMedicineState>,
+      state: MedicineState,
+      action: PayloadAction<MedicineState>,
     ) => {
       state.medicineEffects = action.payload.medicineEffects;
       state.duplicatedMedicines = action.payload.duplicatedMedicines;

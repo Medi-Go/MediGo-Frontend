@@ -2,8 +2,8 @@ import Image from 'next/Image';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import MedicineList from '../../components/MedicineList';
-import { getMedicine } from '../../apis/medicine';
-import { useState, useEffect } from 'react';
+import { getMyMedicines } from '../../apis/medicine';
+import { useEffect } from 'react';
 
 const data = [
   {
@@ -131,16 +131,14 @@ const MainLogo = styled.div`
 `;
 
 const Main = () => {
-  const [myMedicines, setMyMedicine] = useState([]);
-  const [duplicatedMedicines, setDuplicatedMedicine] = useState([]);
+  const dispatch = useDispatch();
   useEffect(() => {
-    const getMedicineData = async () => {
-      const mainMedicines = await getMedicine();
-      console.log(mainMedicines);
+    const getMyMedicinesData = async () => {
+      const myMedicines = await getMyMedicines();
       console.log(myMedicines);
-      console.log(duplicatedMedicines);
     };
-    getMedicineData();
+
+    getMyMedicinesData();
   }, []);
 
   return (
@@ -155,7 +153,7 @@ const Main = () => {
               alt={'arrowRightBtn'}
             />
           </MainLogo>
-          <MedicineList title="복용중인 약" data={myMedicines} />
+          <MedicineList title="복용중인 약" data={data} />
           {/* <MedicineList title="중복 약물" data={duplicatedMedicines} /> */}
         </>
       }
