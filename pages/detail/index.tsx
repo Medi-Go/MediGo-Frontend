@@ -1,6 +1,8 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { getMedicineDetail } from '../../apis/medicine';
 
 const MedicineDetailContainer = styled.div`
   margin-top: 20px;
@@ -100,8 +102,6 @@ const OthersView = styled.div`
   width: 75%;
 `;
 
-const CompanyView = styled.div``;
-
 const CompanyTitleText = styled.div`
   font-weight: bold;
   font-size: 22px;
@@ -130,45 +130,66 @@ const CostText = styled.div`
   margin-top: 20px;
 `;
 
-const Detail: NextPage = () => {
+const Detail = () => {
   const router = useRouter();
+  const [details, setDetails] = useState('');
+  useEffect(() => {
+    const getMedicineDetailData = async () => {
+      const detailsData = await getMedicineDetail(
+        Number(router.query.medicineId),
+      );
+      console.log('detailData', detailsData);
+      setDetails(detailsData);
+    };
+    getMedicineDetailData();
+  }, []);
 
   return (
-    <MedicineDetailContainer>
-      <MedicineNameText>{router.query.name}</MedicineNameText>
-      <EffectView>
-        <EffectText>{router.query.group} | </EffectText>
-        <EffectText>{router.query.effect}</EffectText>
-      </EffectView>
-      <TabooTitleText>유의사항</TabooTitleText>
-      <TabooView>
-        <AgeTabooView>
-          <AgeTabooText>연령금기</AgeTabooText>
-          <AgeTabooText>{router.query.ageTaboo}</AgeTabooText>
-        </AgeTabooView>
-        <CombinedTabooView>
-          <CombinedTabooText>병용금기</CombinedTabooText>
-          <CombinedTabooText>{router.query.combinedTaboo}</CombinedTabooText>
-        </CombinedTabooView>
-      </TabooView>
-      <IngredientTitle>성분정보</IngredientTitle>
-      <IngredientList>
-        {router.query.ingredients.map((ingredient) => (
-          <IngredientText>{ingredient}</IngredientText>
-        ))}
-      </IngredientList>
+    <>
+      {details && (
+        <MedicineDetailContainer>
+          <MedicineNameText>{details.medicineName}</MedicineNameText>
+          <EffectView>
+            <EffectText>
+              {details.medicineInfoCases[0].medicineGroup} |{' '}
+            </EffectText>
+            <EffectText>{details.medicineEffect}</EffectText>
+          </EffectView>
+          <TabooTitleText>유의사항</TabooTitleText>
+          <TabooView>
+            <AgeTabooView>
+              <AgeTabooText>연령금기</AgeTabooText>
+              <AgeTabooText>
+                {details.medicineInfoCases[0].durInfos[0].ageTaboo}
+              </AgeTabooText>
+            </AgeTabooView>
+            <CombinedTabooView>
+              <CombinedTabooText>병용금기</CombinedTabooText>
+              <CombinedTabooText>
+                {details.medicineInfoCases[0].durInfos[0].combinedTaboo}
+              </CombinedTabooText>
+            </CombinedTabooView>
+          </TabooView>
+          <IngredientTitle>성분정보</IngredientTitle>
+          <IngredientList>
+            {details.medicineInfoCases[0].ingredientInfos.map((ingredient) => (
+              <IngredientText>{ingredient.ingredientName}</IngredientText>
+            ))}
+          </IngredientList>
 
-      <OthersView>
-        <div>
-          <CompanyTitleText>제조/수입사</CompanyTitleText>
-          <CompanyText>{router.query.company}</CompanyText>
-        </div>
-        <div>
-          <CostTitleText>급여정보</CostTitleText>
-          <CostText>{router.query.cost}원</CostText>
-        </div>
-      </OthersView>
-    </MedicineDetailContainer>
+          <OthersView>
+            <div>
+              <CompanyTitleText>형태</CompanyTitleText>
+              <CompanyText>{details.medicineInfoCases[0].shape}</CompanyText>
+            </div>
+            <div>
+              <CostTitleText>급여정보</CostTitleText>
+              <CostText>{details.medicineInfoCases[0].payInfo}원</CostText>
+            </div>
+          </OthersView>
+        </MedicineDetailContainer>
+      )}
+    </>
   );
 };
 

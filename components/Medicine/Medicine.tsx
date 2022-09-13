@@ -1,5 +1,4 @@
 import Image from 'next/Image';
-import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import MedicineDetails from '../MedicineDetails/MedicineDetails';
 import {
@@ -29,7 +28,6 @@ const Medicine = ({
   medicineName,
   duplicatedMedicineCases,
 }: MedicineProps) => {
-  const router = useRouter();
   const [effectClicked, setEffectClicked] = useState(false);
   const [duplicatedMedicineClicked, setDuplicatedMedicineClicked] =
     useState(false);
@@ -47,24 +45,6 @@ const Medicine = ({
     setDuplicatedMedicineClicked(!duplicatedMedicineClicked);
   };
 
-  const goToDetail = () => {
-    // router.push(
-    //   {
-    //     pathname: '/detail',
-    //     query: {
-    //       name: name,
-    //       group: group,
-    //       effect: effect,
-    //       combinedTaboo: combinedTaboo,
-    //       ageTaboo: ageTaboo,
-    //       ingredients: ingredients,
-    //       company: company,
-    //       cost: cost,
-    //     },
-    //   },
-    //   '/detail',
-    // );
-  };
   return (
     <>
       {type === 'medicineEffects' ? (
