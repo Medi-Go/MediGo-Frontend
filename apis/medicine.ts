@@ -8,3 +8,12 @@ export const getMedicines = async () => {
 
   return data;
 };
+
+export const getMedicineDetail = async (medicineId: number) => {
+  const { data } = await axiosAuthInstance({
+    url: `/api/v1/medicine/${medicineId}`,
+    method: 'GET',
+  });
+
+  return data;
+};
