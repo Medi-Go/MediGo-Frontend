@@ -24,7 +24,7 @@ const Medicines = ({ title, medicineData }: MedicinesProps) => {
               key={idx}
               type="medicineEffects"
               effect={medicine.effect}
-              medicines={medicine.medicines.length}
+              medicines={medicine.medicines}
             />
           ))
         : medicineData.map((medicine) => (
@@ -32,7 +32,7 @@ const Medicines = ({ title, medicineData }: MedicinesProps) => {
               key={medicine.medicineId}
               type="duplicatedMedicines"
               medicineName={medicine.medicineName}
-              duplicatedMedicineCases={medicine.duplicatedMedicineCases.length}
+              duplicatedMedicineCases={medicine.duplicatedMedicineCases}
             />
           ))}
     </MedicinesContainer>

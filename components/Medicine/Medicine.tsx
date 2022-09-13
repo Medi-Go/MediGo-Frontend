@@ -1,5 +1,7 @@
 import Image from 'next/Image';
 import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
+import MedicineDetails from '../MedicineDetails/MedicineDetails';
 import {
   MedicineContainer,
   MedicineNameContainer,
@@ -7,13 +9,17 @@ import {
   NameText,
   CountText,
 } from './style';
+import {
+  MedicineType,
+  DuplicatedMedicineCaseType,
+} from '../../interfaces/medicines';
 
 interface MedicineProps {
   type: string;
   effect: string;
-  medicines: number;
+  medicines: MedicineType[];
   medicineName: string;
-  duplicatedMedicineCases: number;
+  duplicatedMedicineCases: DuplicatedMedicineCaseType[];
 }
 
 const Medicine = ({
@@ -24,6 +30,22 @@ const Medicine = ({
   duplicatedMedicineCases,
 }: MedicineProps) => {
   const router = useRouter();
+  const [effectClicked, setEffectClicked] = useState(false);
+  const [duplicatedMedicineClicked, setDuplicatedMedicineClicked] =
+    useState(false);
+
+  useEffect(() => {
+    console.log('medicine', medicines);
+    console.log('medicine', duplicatedMedicineCases);
+  }, []);
+
+  const showEffectDetails = () => {
+    setEffectClicked(!effectClicked);
+  };
+
+  const showDuplicatedMedicineCases = () => {
+    setDuplicatedMedicineClicked(!duplicatedMedicineClicked);
+  };
 
   const goToDetail = () => {
     // router.push(
@@ -46,7 +68,7 @@ const Medicine = ({
   return (
     <>
       {type === 'medicineEffects' ? (
-        <MedicineContainer>
+        <MedicineContainer onClick={showEffectDetails}>
           <MedicineNameContainer>
             <MedicineIconImage>
               <Image
@@ -58,10 +80,10 @@ const Medicine = ({
             </MedicineIconImage>
             <NameText>{effect}</NameText>
           </MedicineNameContainer>
-          <CountText>{medicines}종</CountText>
+          <CountText>{medicines.length}종</CountText>
         </MedicineContainer>
       ) : (
-        <MedicineContainer onClick={goToDetail}>
+        <MedicineContainer onClick={showDuplicatedMedicineCases}>
           <MedicineNameContainer>
             <MedicineIconImage>
               <Image
@@ -73,8 +95,12 @@ const Medicine = ({
             </MedicineIconImage>
             <NameText>{medicineName}</NameText>
           </MedicineNameContainer>
-          <CountText>{duplicatedMedicineCases}개</CountText>
+          <CountText>{duplicatedMedicineCases.length}개</CountText>
         </MedicineContainer>
+      )}
+      {effectClicked && <MedicineDetails medicines={medicines} />}
+      {duplicatedMedicineClicked && (
+        <MedicineDetails duplicatedMedicineCases={duplicatedMedicineCases} />
       )}
     </>
   );
