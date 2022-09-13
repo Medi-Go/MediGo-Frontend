@@ -1,32 +1,37 @@
 import { RootState } from '../index';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { MainMedicineType } from '../../interfaces/medicine';
+import {
+  MedicineEffectsType,
+  MedicineType,
+  DuplicatedMedicinesType,
+  DuplicatedMedicineType,
+} from '../../interfaces/medicine';
 
-export interface MainMedicineState {
-  value: MainMedicineType;
+export interface MyMedicineState {
+  medicineEffects: MedicineEffectsType[];
+  duplicatedMedicines: DuplicatedMedicinesType[];
 }
 
-const initialState: MainMedicineState = {
-  value: {
-    effect: '',
-    medicines: [],
-  },
+const initialState: MyMedicineState = {
+  medicineEffects: [],
+  duplicatedMedicines: [],
 };
 
 export const medicineSlice = createSlice({
-  name: 'medicine',
+  name: 'medicines',
   initialState,
   reducers: {
-    setMedicine: (
-      state: MainMedicineState,
-      action: PayloadAction<MainMedicineType>,
+    setMyMedicines: (
+      state: MyMedicineState,
+      action: PayloadAction<MyMedicineState>,
     ) => {
-      state.value = action.payload;
+      state.medicineEffects = action.payload.medicineEffects;
+      state.duplicatedMedicines = action.payload.duplicatedMedicines;
     },
   },
 });
 
-export const selectMedicine = (state: RootState) => state.medicine;
+export const selectMedicines = (state: RootState) => state.medicines;
 
-export const { setMedicine } = medicineSlice.actions;
+export const { setMyMedicines } = medicineSlice.actions;
 export default medicineSlice.reducer;

@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import Image from 'next/Image';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import Medicine from './Medicine';
 
@@ -33,11 +34,6 @@ const TitleText = styled.div`
   font-weight: bold;
 `;
 
-const ArrowBtn = styled.div`
-  width: 34px;
-  height: 34px;
-`;
-
 const MedicineCategoryText = styled.div`
   color: #595959;
   font-weight: bold;
@@ -46,35 +42,20 @@ const MedicineCategoryText = styled.div`
   margin-top: 20px;
 `;
 
-const MedicineList: NextPage<MedicineListProps> = ({ title, data }) => {
+const MedicineList = ({ title, data }: MedicineListProps) => {
+  useEffect(() => {
+    console.log('medicineList', data);
+  }, [data]);
   return (
     <MedicineListContainer>
       <TitleWrapper>
         <TitleText>{title}</TitleText>
-        <ArrowBtn>
-          <Image
-            src={'/images/arrowRightBtn.png'}
-            width={40}
-            height={40}
-            alt={'arrowRightBtn'}
-          />
-        </ArrowBtn>
       </TitleWrapper>
-      {data.map((medicine) => (
-        <Medicine
-          key={medicine.medicineList[0].id}
-          id={medicine.medicineList[0].id}
-          name={medicine.medicineList[0].name}
-          group={medicine.medicineList[0].group}
-          effect={medicine.medicineList[0].effect}
-          combinedTaboo={medicine.medicineList[0].combinedTaboo}
-          ageTaboo={medicine.medicineList[0].ageTaboo}
-          ingredients={medicine.medicineList[0].ingredients}
-          company={medicine.medicineList[0].company}
-          cost={medicine.medicineList[0].cost}
-          left={medicine.medicineList[0].left}
-        />
-      ))}
+      {title === '복용중인 약' ? (
+        data.map((medicine) => <Medicine />)
+      ) : (
+        <Medicine />
+      )}
     </MedicineListContainer>
   );
 };

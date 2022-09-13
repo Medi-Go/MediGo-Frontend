@@ -1,12 +1,9 @@
 import Image from 'next/Image';
 import styled from 'styled-components';
-import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import MedicineList from '../../components/MedicineList';
 import { getMedicine } from '../../apis/medicine';
-import { GetStaticPropsContext } from 'next';
-import { selectMedicine, setMedicine } from '../../store/slices/medicine';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const data = [
   {
@@ -133,17 +130,15 @@ const MainLogo = styled.div`
   width: 150px;
 `;
 
-const Main = ({ mainMedicines }) => {
-  const router = useRouter();
-  const dispatch = useDispatch();
-  const {
-    value: { effect, medicines },
-  } = useSelector(selectMedicine);
-
+const Main = () => {
+  const [myMedicines, setMyMedicine] = useState([]);
+  const [duplicatedMedicines, setDuplicatedMedicine] = useState([]);
   useEffect(() => {
     const getMedicineData = async () => {
       const mainMedicines = await getMedicine();
       console.log(mainMedicines);
+      console.log(myMedicines);
+      console.log(duplicatedMedicines);
     };
     getMedicineData();
   }, []);
@@ -160,22 +155,12 @@ const Main = ({ mainMedicines }) => {
               alt={'arrowRightBtn'}
             />
           </MainLogo>
-
-          <MedicineList title="복용중인 약" data={data} />
-          <MedicineList title="중복 약물" data={data2} />
+          <MedicineList title="복용중인 약" data={myMedicines} />
+          {/* <MedicineList title="중복 약물" data={duplicatedMedicines} /> */}
         </>
       }
     </>
   );
 };
-
-// export async function getStaticProps(context: GetStaticPropsContext) {
-//   const mainMedicines = await getMedicine();
-
-//   return {
-//     props: { mainMedicines },
-//     revalidate: 3600,
-//   };
-// }
 
 export default Main;
