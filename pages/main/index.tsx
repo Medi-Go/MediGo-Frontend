@@ -1,8 +1,9 @@
 import Image from 'next/Image';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { setMedicines } from '../../store/slices/medicines';
 import MedicineList from '../../components/MedicineList';
-import { getMyMedicines } from '../../apis/medicine';
+import { getMedicines } from '../../apis/medicine';
 import { useEffect } from 'react';
 
 const data = [
@@ -134,8 +135,10 @@ const Main = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     const getMyMedicinesData = async () => {
-      const myMedicines = await getMyMedicines();
-      console.log(myMedicines);
+      const { medicineEffects, duplicatedMedicines } = await getMedicines();
+      dispatch(setMedicines({ medicineEffects, duplicatedMedicines }));
+      console.log('medicineEffects', medicineEffects);
+      console.log('duplicatedMedicines', duplicatedMedicines);
     };
 
     getMyMedicinesData();

@@ -19,7 +19,7 @@ export const medicineSlice = createSlice({
   name: 'medicines',
   initialState,
   reducers: {
-    setMyMedicines: (
+    setMedicines: (
       state: MedicineState,
       action: PayloadAction<MedicineState>,
     ) => {
@@ -31,5 +31,5 @@ export const medicineSlice = createSlice({
 
 export const selectMedicines = (state: RootState) => state.medicines;
 
-export const { setMyMedicines } = medicineSlice.actions;
+export const { setMedicines } = medicineSlice.actions;
 export default medicineSlice.reducer;
