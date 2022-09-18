@@ -1,4 +1,4 @@
-import medicines, { MyMedicineState } from './slices/medicines';
+import medicines, { MedicineState } from './slices/medicines';
 import { AnyAction, CombinedState, combineReducers } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import user, { UserState } from './slices/user';
@@ -8,7 +8,7 @@ import prescription, { PrescriptionState } from './slices/prescription';
 export interface IState {
   user: UserState;
   flashAlert: AlertState;
-  medicines: MyMedicineState;
+  medicines: MedicineState;
   prescription: PrescriptionState;
 }
 

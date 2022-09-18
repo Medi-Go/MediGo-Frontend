@@ -1,4 +1,3 @@
-import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';

@@ -5,7 +5,6 @@ import { setMedicines, selectMedicines } from '../../store/slices/medicines';
 import Medicines from '../../components/Medicines/Medicines';
 import { getMedicines } from '../../apis/medicine';
 import { useEffect } from 'react';
-import Effects from '../../components/Effects/Effects';
 
 const MainLogo = styled.div`
   margin-top: 20px;
