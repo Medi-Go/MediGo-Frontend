@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import styled from 'styled-components';
+import {
+  getCalendarTreatments,
+  getCalendarPrescriptions,
+} from '../../../apis/calendar';
 import CalendarHeader from '../CalendarHeader/CalendarHeader';
 import CalendarInfo from '../CalendarInfo/CalendarInfo';
 
@@ -54,8 +58,24 @@ type MedicineListProps = {
 const CalendarComponent = ({ MedicineListData }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
-  const selectDate = (date: Date) => {
+  useEffect(() => {
+    console.log(selectedDate);
+  }, [selectedDate]);
+
+  const selectDate = async (date: Date) => {
     setSelectedDate(date);
+    console.log(dateFormat(date));
+    console.log(await getCalendarTreatments(dateFormat(date)));
+    console.log(await getCalendarPrescriptions(dateFormat(date)));
+  };
+
+  const dateFormat = (date: Date) => {
+    const year = String(date.getFullYear());
+    const month =
+      date.getMonth() + 1 < 10
+        ? '0' + String(date.getMonth() + 1)
+        : String(date.getMonth() + 1);
+    return Number(year + month);
   };
 
   return (

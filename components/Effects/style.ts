@@ -1,5 +1,11 @@
 import styled from '@emotion/styled';
 
-const EffectsContainer = styled.div`
+export const EffectsContainer = styled.div`
   display: flex;
+  flex-direction:column;
+`;
+
+export const EffectsTitle = styled.div`
+  display: flex;
+  flex-direction:column;
 `;
