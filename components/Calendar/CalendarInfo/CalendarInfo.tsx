@@ -1,25 +1,26 @@
-import React from 'react';
-import styled from 'styled-components';
-
-const CalendarInfoContainer = styled.div`
-  margin-left: 1rem;
-`;
-
-const CalendarInfo = ({ medicineList }) => {
+const CalendarInfo = ({ calendarDataType, calendarData }) => {
   return (
-    <div>
-      {medicineList.map((medicine) => (
-        <CalendarInfoContainer key={medicine.id}>
-          {medicine.name}
-        </CalendarInfoContainer>
-      ))}
-      {/* {MedicineListData.filter(
-        (medicine) =>
-          medicine.date.toDateString() === selectedDate.toDateString(),
-      ).map((medicine) => {
-        return <div key={medicine.disease}>{medicine.disease}</div>;
-      })} */}
-    </div>
+    <>
+      {calendarDataType === '투약내역'
+        ? calendarData.prescriptions.map((prescription) => (
+            <div key={prescription.prescriptionId}>
+              <div>{prescription.treatMedicalName}</div>
+              {prescription.medicineDetails.map((detail) => (
+                <>
+                  <div>{detail.medicineName}</div>
+                  <div>{detail.medicineEffect}</div>
+                  <div>{detail.administerCount}</div>
+                </>
+              ))}
+            </div>
+          ))
+        : calendarData.treatments.map((treatment, idx) => (
+            <div key={idx}>
+              <div>{treatment.treatType}</div>
+              <div>{treatment.treatMedicalName}</div>
+            </div>
+          ))}
+    </>
   );
 };
 

@@ -14,6 +14,7 @@ const Auth = () => {
 
   const loginRequest = async () => {
     try {
+      console.log(userId);
       const data = await login(userId);
       dispatch(loginUser(data.memberResponse));
       setStorageItem('token', data.accessToken);

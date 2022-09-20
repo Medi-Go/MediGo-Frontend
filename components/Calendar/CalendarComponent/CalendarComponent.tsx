@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import styled from 'styled-components';
@@ -23,17 +23,11 @@ const CalendarDayInfoContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   border-radius: 10px;
-  background-color: green;
+  background-color: lightgray;
   padding: 20px;
   width: 10rem;
   height: 5rem;
   font-size: 15px;
-`;
-
-const CalendarDayInfo = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
 `;
 
 type MedicineProps = {
@@ -55,27 +49,40 @@ type MedicineListProps = {
   data: MedicineProps[];
 };
 
-const CalendarComponent = ({ MedicineListData }) => {
+const CalendarComponent = ({ calendarDataType }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-
-  useEffect(() => {
-    console.log(selectedDate);
-  }, [selectedDate]);
+  const [calendarTreatments, setCalendarTreatments] = useState([]);
+  const [calendarPrescriptions, setCalendarPrescriptions] = useState([]);
 
   const selectDate = async (date: Date) => {
     setSelectedDate(date);
-    console.log(dateFormat(date));
-    console.log(await getCalendarTreatments(dateFormat(date)));
-    console.log(await getCalendarPrescriptions(dateFormat(date)));
+    const formedDate = Number(String(createDateFormat(date)).slice(0, 6));
+
+    const calendarTreatmentsData = await getCalendarTreatments(formedDate);
+    const calendarPrescriptionsData = await getCalendarPrescriptions(
+      formedDate,
+    );
+    setCalendarTreatments(calendarTreatmentsData.calendarTreatments);
+    setCalendarPrescriptions(calendarPrescriptionsData.calendarPrescriptions);
   };
 
-  const dateFormat = (date: Date) => {
+  const createDateFormat = (date: Date) => {
     const year = String(date.getFullYear());
     const month =
       date.getMonth() + 1 < 10
         ? '0' + String(date.getMonth() + 1)
         : String(date.getMonth() + 1);
-    return Number(year + month);
+    const day =
+      date.getMonth() + 1 < 10
+        ? '0' + String(date.getDate())
+        : String(date.getDate());
+    return Number(year + month + day);
+  };
+
+  const getFilteredData = (calendarData) => {
+    return calendarData.filter(
+      (data) => data.date === createDateFormat(selectedDate),
+    )[0];
   };
 
   return (
@@ -101,15 +108,19 @@ const CalendarComponent = ({ MedicineListData }) => {
         )}
       />
       <CalendarDayInfoContainer>
-        {MedicineListData.filter(
-          (medicine) =>
-            medicine.date.toDateString() === selectedDate.toDateString(),
-        ).map((medicine) => (
-          <CalendarDayInfo key={medicine}>
-            <div>{medicine.disease}</div>
-            <CalendarInfo medicineList={medicine.medicineList} />
-          </CalendarDayInfo>
-        ))}
+        {calendarDataType === '투약내역'
+          ? getFilteredData(calendarPrescriptions) && (
+              <CalendarInfo
+                calendarDataType={calendarDataType}
+                calendarData={getFilteredData(calendarPrescriptions)}
+              />
+            )
+          : getFilteredData(calendarTreatments) && (
+              <CalendarInfo
+                calendarDataType={calendarDataType}
+                calendarData={getFilteredData(calendarTreatments)}
+              />
+            )}
       </CalendarDayInfoContainer>
     </CalendarContainer>
   );
