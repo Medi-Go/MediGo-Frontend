@@ -1,10 +1,10 @@
 import { Button } from '@mui/material';
-import { connectMydata } from '../../apis/connection';
-import { test } from '../../apis/info';
+// import { connectMydata } from '../../apis/connection';
+// import { test } from '../../apis/info';
 
 const Mydata = () => {
   const handleConnectMydata = async () => {
-    await test();
+    // await test();
   };
 
   return (

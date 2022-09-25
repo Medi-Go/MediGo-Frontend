@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { getMedicineDetail } from '../../apis/medicine';
+import { DetailsType } from '../../interfaces/detail';
 
 const MedicineDetailContainer = styled.div`
   margin-top: 20px;
@@ -114,8 +115,6 @@ const CompanyText = styled.div`
   margin-top: 20px;
 `;
 
-const CostView = styled.div``;
-
 const CostTitleText = styled.div`
   font-weight: bold;
   font-size: 22px;
@@ -131,7 +130,13 @@ const CostText = styled.div`
 
 const Detail = () => {
   const router = useRouter();
-  const [details, setDetails] = useState('');
+  const defaultObject: DetailsType = {
+    medicineId: 0,
+    medicineEffect: '',
+    medicineName: '',
+    medicineInfoCases: [],
+  };
+  const [details, setDetails] = useState(defaultObject);
   useEffect(() => {
     const getMedicineDetailData = async () => {
       const detailsData = await getMedicineDetail(
@@ -141,7 +146,7 @@ const Detail = () => {
       setDetails(detailsData);
     };
     getMedicineDetailData();
-  }, []);
+  }, [router.query.medicineId]);
 
   return (
     <>
@@ -150,7 +155,7 @@ const Detail = () => {
           <MedicineNameText>{details.medicineName}</MedicineNameText>
           <EffectView>
             <EffectText>
-              {details.medicineInfoCases[0].medicineGroup} |{' '}
+              {/* {details.medicineInfoCases[0].medicineGroup} |{' '} */}
             </EffectText>
             <EffectText>{details.medicineEffect}</EffectText>
           </EffectView>
@@ -171,9 +176,13 @@ const Detail = () => {
           </TabooView>
           <IngredientTitle>성분정보</IngredientTitle>
           <IngredientList>
-            {details.medicineInfoCases[0].ingredientInfos.map((ingredient) => (
-              <IngredientText>{ingredient.ingredientName}</IngredientText>
-            ))}
+            {details.medicineInfoCases[0].ingredientInfos.map(
+              (ingredient, idx) => (
+                <IngredientText key={idx}>
+                  {ingredient.ingredientName}
+                </IngredientText>
+              ),
+            )}
           </IngredientList>
 
           <OthersView>

@@ -1,16 +1,9 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import React, { useState } from 'react';
-import { FormikHelpers } from 'formik';
 import { IconButton, Modal, CardHeader, CardContent, Box } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import { InfoModalType } from '../../interfaces/info';
-import { getInputInfo } from '../../apis/info';
-import {
-  CardWrapper,
-  ModalErrorMessage,
-  SubmitModalButton,
-  ModalTextField,
-} from './style';
+import { CardWrapper, SubmitModalButton, ModalTextField } from './style';
 import { setPrescription } from '../../store/slices/prescription';
 
 const InfoModal = ({ isOpen, onClose }: InfoModalType) => {

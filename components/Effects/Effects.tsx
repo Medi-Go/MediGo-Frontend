@@ -4,7 +4,7 @@ import Effect from '../Effect/Effect';
 const Effects = ({ title, effects }) => {
   useEffect(() => {
     console.log('effects', title, effects);
-  }, []);
+  }, [title, effects]);
   return (
     <>
       <div>{title}</div>
