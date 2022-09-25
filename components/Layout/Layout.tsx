@@ -4,9 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useLayoutEffect } from 'react';
 import { getStorageItem } from '../../utils/storage';
 import { loginUser, selectUser } from '../../store/slices/user';
-import { selectFlashAlert } from '../../store/slices/flashAlert';
 import { useAxiosInterceptor } from '../../hooks/useAxiosAuthInterceptor';
-import { FlashAlert, NavigationHeader } from '../index';
+import { NavigationHeader } from '../index';
 import { getAuthUser } from '../../apis/user';
 import { LayoutContainer } from './style';
 

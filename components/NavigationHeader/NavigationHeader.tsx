@@ -35,7 +35,7 @@ const Item = styled.li`
 const NavigationHeader = () => {
   const router = useRouter();
 
-  const routingPages = (event: Event): void => {
+  const routingPages = (event): void => {
     const pageName: string = event.target.innerHTML;
     router.push(`/${pageName}`);
   };

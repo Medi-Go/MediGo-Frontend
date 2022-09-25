@@ -16,7 +16,7 @@ export const getItemAll = async () => {
   return data;
 };
 
-export const getItemById = async (id: any) => {
+export const getItemById = async (id) => {
   const response = await apiClient.get(`/${id}`);
   return response.data;
 };

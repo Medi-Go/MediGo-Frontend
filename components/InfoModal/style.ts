@@ -20,12 +20,6 @@ export const ModalTextField = styled(TextField)`
   font-size: 6px;
 `;
 
-export const ModalErrorMessage = styled(Typography)`
-  display: inline;
-  font-size: 0.8rem;
-  color: ${({ theme }) => theme.palette.error.main};
-`;
-
 export const SubmitModalButton = styled(Button)`
   float: right;
   margin-top: 0.5rem;

@@ -24,10 +24,18 @@ const MainLogo = styled(Image)`
   margin-top: 20px;
 `;
 
+interface FormDataType {
+  email: any;
+  name: string;
+  phoneNumber: string;
+  jumin: string;
+  carrier: string;
+}
+
 const Signup = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const email: string = router.query.email;
+  const email = router.query.email;
 
   const {
     values,
@@ -55,7 +63,7 @@ const Signup = () => {
       carrier: yup.string().required('통신사를 입력해주세요.'),
     }),
     onSubmit: async (values) => {
-      const formData = {
+      const formData: FormDataType = {
         email,
         name: values.name,
         phoneNumber: values.phoneNumber,

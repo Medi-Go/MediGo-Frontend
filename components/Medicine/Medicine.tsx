@@ -15,10 +15,10 @@ import {
 
 interface MedicineProps {
   type: string;
-  effect: string;
-  medicines: MedicineType[];
-  medicineName: string;
-  duplicatedMedicineCases: DuplicatedMedicineCaseType[];
+  effect?: string;
+  medicines?: MedicineType[];
+  medicineName?: string;
+  duplicatedMedicineCases?: DuplicatedMedicineCaseType[];
 }
 
 const Medicine = ({

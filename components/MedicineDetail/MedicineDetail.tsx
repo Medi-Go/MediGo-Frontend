@@ -1,7 +1,16 @@
 import { MedicineDetailContainer } from './style';
 import { useRouter } from 'next/router';
+import {
+  MedicineType,
+  DuplicatedMedicineCaseType,
+} from '../../interfaces/medicines';
 
-const MedicineDetail = ({ medicine, duplicatedCase }) => {
+interface MedicineDetailProps {
+  medicine?: MedicineType;
+  duplicatedCase?: DuplicatedMedicineCaseType;
+}
+
+const MedicineDetail = ({ medicine, duplicatedCase }: MedicineDetailProps) => {
   const router = useRouter();
 
   const goToDetail = () => {

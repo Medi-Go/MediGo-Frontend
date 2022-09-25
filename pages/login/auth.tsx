@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { setStorageItem } from '../../utils/storage';
 import { loginUser } from '../../store/slices/user';
-import { CircularProgress, Typography, useTheme } from '@mui/material';
+import { CircularProgress, Typography } from '@mui/material';
 import { login } from '../../apis/user';
 import { LoginContainer } from './style';
 

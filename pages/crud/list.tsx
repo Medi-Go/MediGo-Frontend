@@ -1,20 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import type { FC } from 'react';
-import { createItem, deleteById, putById, patchById, Item } from './service';
+import React, { useState } from 'react';
+import { deleteById, putById, Item } from './service';
 import { useMutation, useQueryClient } from 'react-query';
 import { queryKeys } from './queryKeys';
 
-const List: FC = ({ listData }) => {
-  useEffect(() => {
-    console.log(listData);
-  });
+const List = ({ listData }) => {
   const queryClient = useQueryClient();
   const [editable, setEditable] = useState(false);
   const [titleInputVal, setTitleInputVal] = useState<string>('');
   const [bodyInputVal, setBodyInputVal] = useState<string>('');
   const [clickedId, setClickedId] = useState<number>(1);
   const deleteItem = useMutation((id: number) => deleteById(id), {
-    onSuccess: (data) => {
+    onSuccess: () => {
       console.log('delete');
       queryClient.invalidateQueries(queryKeys.posts);
     },
@@ -34,7 +30,7 @@ const List: FC = ({ listData }) => {
   //     },
   //   });
   const putItem = useMutation((item: Item) => putById(item.id, item.body), {
-    onSuccess: (data) => {
+    onSuccess: () => {
       console.log('put success');
       setEditable(!editable);
       queryClient.invalidateQueries(queryKeys.posts);
@@ -45,7 +41,7 @@ const List: FC = ({ listData }) => {
   });
 
   const patchItem = useMutation((item: Item) => putById(item.id, item.body), {
-    onSuccess: (data) => {
+    onSuccess: () => {
       console.log('patch success');
       setEditable(!editable);
       queryClient.invalidateQueries(queryKeys.posts);
@@ -53,10 +49,6 @@ const List: FC = ({ listData }) => {
     onError: (error) => {
       console.log(error);
     },
-  });
-
-  useEffect(() => {
-    console.log(listData);
   });
 
   const handleDelete = (id: number) => {
