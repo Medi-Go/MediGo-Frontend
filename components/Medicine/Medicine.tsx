@@ -1,4 +1,3 @@
-import Image from 'next/Image';
 import { useState } from 'react';
 import MedicineDetails from '../MedicineDetails/MedicineDetails';
 import {
@@ -46,12 +45,12 @@ const Medicine = ({
         <MedicineContainer onClick={showEffectDetails}>
           <MedicineNameContainer>
             <MedicineIconImage>
-              <Image
+              {/* <Image
                 src={'/icon-192x192.png'}
                 width={40}
                 height={40}
                 alt={'medicineIcon'}
-              />
+              /> */}
             </MedicineIconImage>
             <NameText>{effect}</NameText>
           </MedicineNameContainer>
@@ -61,12 +60,12 @@ const Medicine = ({
         <MedicineContainer onClick={showDuplicatedMedicineCases}>
           <MedicineNameContainer>
             <MedicineIconImage>
-              <Image
+              {/* <Image
                 src={'/icon-192x192.png'}
                 width={40}
                 height={40}
                 alt={'medicineIcon'}
-              />
+              /> */}
             </MedicineIconImage>
             <NameText>{medicineName}</NameText>
           </MedicineNameContainer>
