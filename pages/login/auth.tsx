@@ -3,9 +3,21 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { setStorageItem } from '../../utils/storage';
 import { loginUser } from '../../store/slices/user';
-import { CircularProgress, Typography, useTheme } from '@mui/material';
+import { CircularProgress, Typography } from '@mui/material';
 import { login } from '../../apis/user';
-import { LoginContainer } from './style';
+import styled from '@emotion/styled';
+
+export const LoginContainer = styled.div`
+  max-width: 640px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 auto;
+  padding: 15rem 0;
+`;
 
 const Auth = () => {
   const router = useRouter();

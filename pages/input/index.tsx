@@ -1,20 +1,27 @@
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@mui/material';
 import InfoModal from '../../components/InfoModal/InfoModal';
 import { useSelector } from 'react-redux';
 import { selectPrescription } from '../../store/slices/prescription';
 import { getInputInfo, patchInputInfo } from '../../apis/info';
 import { getPrescriptionInputValue } from '../../utils/input';
-import {
-  PrescriptionContainer,
-  PrescriptionInfo,
-  PrescriptionInput,
-} from './style';
+import styled from '@emotion/styled';
+export const PrescriptionContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  height: 3rem;
+`;
+
+export const PrescriptionInfo = styled.div`
+  margin: 10px;
+`;
+
+export const PrescriptionInput = styled.input`
+  margin: 5px;
+  width: 3rem;
+`;
 
 const Input = () => {
-  const router = useRouter();
-
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [prescriptions, setPrescription] = useState([]);
 
@@ -29,14 +36,14 @@ const Input = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     getPrescriptions();
-    createPrescriptionEditData(e);
+    createPrescriptionEditData();
     console.log(e);
   };
-  const handleEditPrescription = (e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation();
-  };
+  // const handleEditPrescription = (e: React.MouseEvent<HTMLElement>) => {
+  //   e.stopPropagation();
+  // };
 
-  const createPrescriptionEditData = async (e) => {
+  const createPrescriptionEditData = async () => {
     const prescriptionsData = [];
     prescriptions.map((prescription) => {
       prescriptionsData.push({

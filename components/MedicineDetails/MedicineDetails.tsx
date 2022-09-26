@@ -1,11 +1,19 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import MedicineDetail from '../MedicineDetail/MedicineDetail';
+import {
+  MedicineType,
+  DuplicatedMedicineCaseType,
+} from '../../interfaces/medicines';
 
-const MedicineDetails = ({ medicines, duplicatedMedicineCases }) => {
-  useEffect(() => {
-    console.log('medicineDetails', medicines);
-    console.log('medicineDetails', duplicatedMedicineCases);
-  });
+interface MedicineDetailsProps {
+  medicines?: MedicineType[];
+  duplicatedMedicineCases?: DuplicatedMedicineCaseType[];
+}
+
+const MedicineDetails = ({
+  medicines,
+  duplicatedMedicineCases,
+}: MedicineDetailsProps) => {
   return (
     <>
       {!!medicines && (

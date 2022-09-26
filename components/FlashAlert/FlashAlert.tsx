@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { closeAlert, selectFlashAlert } from '../../store/slices/flashAlert';
-import { DefaultAlert } from '../../components/DefaultAlert/DefaultAlert';
+import DefaultAlert from '../../components/DefaultAlert/DefaultAlert';
 
 const FlashAlert = () => {
   const state = useSelector(selectFlashAlert);

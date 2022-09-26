@@ -16,7 +16,7 @@ export const getItemAll = async () => {
   return data;
 };
 
-export const getItemById = async (id: any) => {
+export const getItemById = async (id) => {
   const response = await apiClient.get(`/${id}`);
   return response.data;
 };
@@ -55,4 +55,10 @@ export const patchById = async (id: number, body: string) => {
 export const deleteById = async (id: number) => {
   const response = await apiClient.delete(`/${id}`);
   return response.data;
+};
+
+export const queryKeys = {
+  posts: ['posts'] as const,
+  createPost: (id: number, title: string, body: number) =>
+    ['createPost', id, title, body] as const,
 };

@@ -1,5 +1,5 @@
 import Image from 'next/Image';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import MedicineDetails from '../MedicineDetails/MedicineDetails';
 import {
   MedicineContainer,
@@ -15,10 +15,10 @@ import {
 
 interface MedicineProps {
   type: string;
-  effect: string;
-  medicines: MedicineType[];
-  medicineName: string;
-  duplicatedMedicineCases: DuplicatedMedicineCaseType[];
+  effect?: string;
+  medicines?: MedicineType[];
+  medicineName?: string;
+  duplicatedMedicineCases?: DuplicatedMedicineCaseType[];
 }
 
 const Medicine = ({
@@ -31,11 +31,6 @@ const Medicine = ({
   const [effectClicked, setEffectClicked] = useState(false);
   const [duplicatedMedicineClicked, setDuplicatedMedicineClicked] =
     useState(false);
-
-  useEffect(() => {
-    console.log('medicine', medicines);
-    console.log('medicine', duplicatedMedicineCases);
-  }, []);
 
   const showEffectDetails = () => {
     setEffectClicked(!effectClicked);

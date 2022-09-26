@@ -1,10 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Effect from '../Effect/Effect';
 
 const Effects = ({ title, effects }) => {
-  useEffect(() => {
-    console.log('effects', title, effects);
-  }, []);
   return (
     <>
       <div>{title}</div>

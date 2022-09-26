@@ -43,12 +43,6 @@ type MedicineProps = {
   left: number;
 };
 
-type MedicineListProps = {
-  title: string;
-  date: Date;
-  data: MedicineProps[];
-};
-
 const CalendarComponent = ({ calendarDataType }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [calendarTreatments, setCalendarTreatments] = useState([]);

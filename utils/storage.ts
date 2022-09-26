@@ -1,7 +1,7 @@
 let storage;
 
 if (typeof localStorage !== 'undefined') {
-  storage = window.localStorage;
+  storage = localStorage;
 }
 
 export const setStorageItem = (key: string, value: string) => {

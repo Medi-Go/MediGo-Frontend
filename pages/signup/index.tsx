@@ -1,6 +1,5 @@
 import * as yup from 'yup';
 import Image from 'next/Image';
-import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
@@ -11,23 +10,54 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { setStorageItem } from '../../utils/storage';
 import { loginUser } from '../../store/slices/user';
 import { Button, CircularProgress, TextField } from '@mui/material';
-import {
-  FormContainer,
-  FormInputContainer,
-  MbtiContainer,
-  MbtiWrapper,
-  StyledForm,
-} from './style';
 import { carrierOptions } from '../../constants/selectOptions';
+import styled from '@emotion/styled';
+
+export const FormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const StyledForm = styled.form`
+  width: 392px;
+  height: 444px;
+  padding: 1rem 1rem 0;
+`;
+
+export const FormInputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 2.5rem;
+  gap: 2rem;
+`;
+
+export const MbtiContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
+export const MbtiWrapper = styled.div`
+  width: calc(50%);
+`;
 
 const MainLogo = styled(Image)`
   margin-top: 20px;
 `;
 
+interface FormDataType {
+  email: any;
+  name: string;
+  phoneNumber: string;
+  jumin: string;
+  carrier: string;
+}
+
 const Signup = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const email: string = router.query.email;
+  const email = router.query.email;
 
   const {
     values,
@@ -55,7 +85,7 @@ const Signup = () => {
       carrier: yup.string().required('통신사를 입력해주세요.'),
     }),
     onSubmit: async (values) => {
-      const formData = {
+      const formData: FormDataType = {
         email,
         name: values.name,
         phoneNumber: values.phoneNumber,
