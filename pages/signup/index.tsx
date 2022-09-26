@@ -1,5 +1,4 @@
 import * as yup from 'yup';
-import Image from 'next/Image';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
@@ -42,9 +41,9 @@ export const MbtiWrapper = styled.div`
   width: calc(50%);
 `;
 
-const MainLogo = styled(Image)`
-  margin-top: 20px;
-`;
+// const MainLogo = styled(Image)`
+//   margin-top: 20px;
+// `;
 
 interface FormDataType {
   email: any;
@@ -109,12 +108,12 @@ const Signup = () => {
 
   return (
     <FormContainer>
-      <MainLogo
+      {/* <MainLogo
         src={'/images/mainLogo.png'}
         width={130}
         height={40}
         alt={'arrowRightBtn'}
-      />
+      /> */}
       <StyledForm onSubmit={handleSubmit}>
         <FormInputContainer>
           <TextField
