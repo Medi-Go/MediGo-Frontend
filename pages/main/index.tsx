@@ -1,4 +1,3 @@
-import Image from 'next/Image';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMedicines, selectMedicines } from '../../store/slices/medicines';
@@ -30,12 +29,12 @@ const Main = () => {
       {
         <>
           <MainLogo>
-            <Image
+            {/* <Image
               src={'/images/mainLogo.png'}
               width={130}
               height={37}
               alt={'arrowRightBtn'}
-            />
+            /> */}
           </MainLogo>
           <Medicines title="복용중인 약" medicineData={medicineEffects} />
           <Medicines title="중복 약물" medicineData={duplicatedMedicines} />
