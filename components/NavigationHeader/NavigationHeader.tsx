@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import Image from 'next/image';
+// import Image from 'next/image';
 import Calendar from '../../assets/nav/calendar_nav.svg';
 import Graph from '../../assets/nav/graph_nav.svg';
 import MyPage from '../../assets/nav/mypage_nav.svg';
@@ -44,19 +44,19 @@ const NavigationHeader = () => {
     <Container>
       <List>
         <Item onClick={routingPages}>
-          <Image src={MyPage} alt="mypage" />
+          {/* <Image src={MyPage} alt="mypage" /> */}
           <div>main</div>
         </Item>
         <Item onClick={routingPages}>
-          <Image src={Calendar} alt="calendar" />
+          {/* <Image src={Calendar} alt="calendar" /> */}
           <div>calendar</div>
         </Item>
         <Item onClick={routingPages}>
-          <Image src={Graph} alt="graph" />
+          {/* <Image src={Graph} alt="graph" /> */}
           <div>graph</div>
         </Item>
         <Item onClick={routingPages}>
-          <Image src={Ranking} alt="ranking" />
+          {/* <Image src={Ranking} alt="ranking" /> */}
           <div>profile</div>
         </Item>
       </List>
