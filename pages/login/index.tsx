@@ -1,4 +1,3 @@
-import Image from 'next/Image';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 
@@ -46,12 +45,12 @@ const Login = () => {
     <LoginPageContainer>
       <ServiceTitle>MediGo</ServiceTitle>
       <IconWrapper>
-        <Image
+        {/* <Image
           src={'/icon-512x512.png'}
           width={250}
           height={250}
           alt={'medicineIcon'}
-        />
+        /> */}
       </IconWrapper>
       <BtnWrapper>
         <GoogleLoginBtn
