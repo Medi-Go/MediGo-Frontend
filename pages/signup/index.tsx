@@ -1,6 +1,5 @@
 import * as yup from 'yup';
 import Image from 'next/Image';
-import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
@@ -11,14 +10,37 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { setStorageItem } from '../../utils/storage';
 import { loginUser } from '../../store/slices/user';
 import { Button, CircularProgress, TextField } from '@mui/material';
-import {
-  FormContainer,
-  FormInputContainer,
-  MbtiContainer,
-  MbtiWrapper,
-  StyledForm,
-} from './style';
 import { carrierOptions } from '../../constants/selectOptions';
+import styled from '@emotion/styled';
+
+export const FormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const StyledForm = styled.form`
+  width: 392px;
+  height: 444px;
+  padding: 1rem 1rem 0;
+`;
+
+export const FormInputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 2.5rem;
+  gap: 2rem;
+`;
+
+export const MbtiContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
+export const MbtiWrapper = styled.div`
+  width: calc(50%);
+`;
 
 const MainLogo = styled(Image)`
   margin-top: 20px;

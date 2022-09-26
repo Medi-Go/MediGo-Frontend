@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import {
   DuplicatedMedicineType,
   MedicineEffectType,
@@ -12,9 +11,6 @@ interface MedicinesProps {
 }
 
 const Medicines = ({ title, medicineData }: MedicinesProps) => {
-  useEffect(() => {
-    console.log('medicines', medicineData);
-  }, [medicineData]);
   return (
     <MedicinesContainer>
       <TitleText>{title}</TitleText>

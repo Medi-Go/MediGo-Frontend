@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
-import { createItem, Item } from './service';
-import { queryKeys } from './queryKeys';
+import { createItem, Item } from '../../utils/crud';
+import { queryKeys } from '../../utils/crud';
 import type { FC } from 'react';
 
 interface IFormInput {

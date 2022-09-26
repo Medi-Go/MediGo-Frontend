@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import MedicineDetail from '../MedicineDetail/MedicineDetail';
 import {
   MedicineType,
@@ -14,10 +14,6 @@ const MedicineDetails = ({
   medicines,
   duplicatedMedicineCases,
 }: MedicineDetailsProps) => {
-  useEffect(() => {
-    console.log('medicineDetails', medicines);
-    console.log('medicineDetails', duplicatedMedicineCases);
-  });
   return (
     <>
       {!!medicines && (

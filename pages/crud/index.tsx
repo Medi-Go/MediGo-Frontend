@@ -1,9 +1,9 @@
 import type { NextPage } from 'next';
 import { useQuery } from 'react-query';
-import { getItemAll } from './service';
+import { getItemAll } from '../../utils/crud';
+import { queryKeys } from '../../utils/crud';
 import Form from './form';
 import List from './list';
-import { queryKeys } from './queryKeys';
 import { useEffect } from 'react';
 
 const Crud: NextPage = () => {
