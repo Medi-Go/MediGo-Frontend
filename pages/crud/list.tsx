@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { deleteById, putById, Item } from './service';
+import { deleteById, putById, Item } from '../../utils/crud';
 import { useMutation, useQueryClient } from 'react-query';
-import { queryKeys } from './queryKeys';
+import { queryKeys } from '../../utils/crud';
 
 const List = ({ listData }) => {
   const queryClient = useQueryClient();

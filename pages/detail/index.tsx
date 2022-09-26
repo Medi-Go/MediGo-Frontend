@@ -150,12 +150,12 @@ const Detail = () => {
 
   return (
     <>
-      {details && (
+      {details !== defaultObject && (
         <MedicineDetailContainer>
           <MedicineNameText>{details.medicineName}</MedicineNameText>
           <EffectView>
             <EffectText>
-              {/* {details.medicineInfoCases[0].medicineGroup} |{' '} */}
+              {details.medicineInfoCases[0].medicineGroup} |{' '}
             </EffectText>
             <EffectText>{details.medicineEffect}</EffectText>
           </EffectView>
