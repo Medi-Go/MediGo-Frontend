@@ -15,10 +15,7 @@ const MedicineNameText = styled.div`
   color: #595959;
 `;
 
-const EffectView = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
+const MedicineInfoCaseContainer = styled.div``;
 
 const EffectText = styled.div`
   font-size: 16px;
@@ -42,28 +39,27 @@ const TabooView = styled.div`
   width: 85%;
 `;
 
-const AgeTabooView = styled.div`
+const DurInfoContainer = styled.div`
   margin-top: 20px;
   padding: 10px;
   background-color: #d2e9ff;
-  width: 30%;
   border-radius: 10px;
   display: flex;
+  flex-direction: row;
   align-items: center;
-  flex-direction: column;
 `;
 
 const AgeTabooText = styled.div`
+  display: flex;
+  flex-direction: column;
   font-size: 18px;
   color: #595959;
-  margin-top: 5px;
 `;
 
-const CombinedTabooView = styled.div`
+const TabooContainer = styled.div`
   margin-top: 20px;
   padding: 10px;
   background-color: #d2e9ff;
-  width: 30%;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -73,7 +69,6 @@ const CombinedTabooView = styled.div`
 const CombinedTabooText = styled.div`
   font-size: 18px;
   color: #595959;
-  margin-top: 5px;
 `;
 
 const IngredientTitle = styled.div`
@@ -146,6 +141,7 @@ const Detail = () => {
       setDetails(detailsData);
     };
     getMedicineDetailData();
+    console.log();
   }, [router.query.medicineId]);
 
   return (
@@ -153,48 +149,54 @@ const Detail = () => {
       {details !== defaultObject && (
         <MedicineDetailContainer>
           <MedicineNameText>{details.medicineName}</MedicineNameText>
-          <EffectView>
-            <EffectText>
-              {details.medicineInfoCases[0].medicineGroup} |{' '}
-            </EffectText>
-            <EffectText>{details.medicineEffect}</EffectText>
-          </EffectView>
-          <TabooTitleText>유의사항</TabooTitleText>
-          <TabooView>
-            <AgeTabooView>
-              <AgeTabooText>연령금기</AgeTabooText>
-              <AgeTabooText>
-                {details.medicineInfoCases[0].durInfos[0].ageTaboo}
-              </AgeTabooText>
-            </AgeTabooView>
-            <CombinedTabooView>
-              <CombinedTabooText>병용금기</CombinedTabooText>
-              <CombinedTabooText>
-                {details.medicineInfoCases[0].durInfos[0].combinedTaboo}
-              </CombinedTabooText>
-            </CombinedTabooView>
-          </TabooView>
-          <IngredientTitle>성분정보</IngredientTitle>
-          <IngredientList>
-            {details.medicineInfoCases[0].ingredientInfos.map(
-              (ingredient, idx) => (
-                <IngredientText key={idx}>
-                  {ingredient.ingredientName}
-                </IngredientText>
-              ),
-            )}
-          </IngredientList>
+          <MedicineInfoCaseContainer>
+            {details.medicineInfoCases.map((medicineInfoCase, idx) => (
+              <>
+                <EffectText key={idx}>
+                  {medicineInfoCase.medicineGroup}
+                </EffectText>
+                <TabooTitleText>유의사항</TabooTitleText>
+                <TabooView>
+                  <DurInfoContainer>
+                    {medicineInfoCase.durInfos.map((durInfo) => (
+                      <>
+                        <TabooContainer>
+                          <AgeTabooText>연령금기</AgeTabooText>
+                          {durInfo.ageTaboo}
+                          <AgeTabooText></AgeTabooText>
+                        </TabooContainer>
+                        <TabooContainer>
+                          <CombinedTabooText>병용금기</CombinedTabooText>
+                          <CombinedTabooText>
+                            {durInfo.combinedTaboo}
+                          </CombinedTabooText>
+                        </TabooContainer>
+                      </>
+                    ))}
+                  </DurInfoContainer>
+                </TabooView>
+                <IngredientTitle>성분정보</IngredientTitle>
+                <IngredientList>
+                  {medicineInfoCase.ingredientInfos.map((ingredient, idx) => (
+                    <IngredientText key={idx}>
+                      {ingredient.ingredientName}
+                    </IngredientText>
+                  ))}
+                </IngredientList>
 
-          <OthersView>
-            <div>
-              <CompanyTitleText>형태</CompanyTitleText>
-              <CompanyText>{details.medicineInfoCases[0].shape}</CompanyText>
-            </div>
-            <div>
-              <CostTitleText>급여정보</CostTitleText>
-              <CostText>{details.medicineInfoCases[0].payInfo}원</CostText>
-            </div>
-          </OthersView>
+                <OthersView>
+                  <div>
+                    <CompanyTitleText>형태</CompanyTitleText>
+                    <CompanyText>{medicineInfoCase.shape}</CompanyText>
+                  </div>
+                  <div>
+                    <CostTitleText>급여정보</CostTitleText>
+                    <CostText>{medicineInfoCase.payInfo}원</CostText>
+                  </div>
+                </OthersView>
+              </>
+            ))}
+          </MedicineInfoCaseContainer>
         </MedicineDetailContainer>
       )}
     </>
