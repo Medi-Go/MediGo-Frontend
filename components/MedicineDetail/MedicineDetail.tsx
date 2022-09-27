@@ -14,15 +14,9 @@ const MedicineDetail = ({ medicine, duplicatedCase }: MedicineDetailProps) => {
   const router = useRouter();
 
   const goToDetail = () => {
-    router.push(
-      {
-        pathname: '/detail',
-        query: {
-          medicineId: medicine.medicineId,
-        },
-      },
-      '/detail',
-    );
+    router.push({
+      pathname: `/medicine/${medicine.medicineId}`,
+    });
   };
   return (
     <>

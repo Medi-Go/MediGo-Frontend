@@ -123,7 +123,7 @@ const CostText = styled.div`
   margin-top: 20px;
 `;
 
-const Detail = () => {
+const Medicine = () => {
   const router = useRouter();
   const defaultObject: DetailsType = {
     medicineId: 0,
@@ -141,7 +141,6 @@ const Detail = () => {
       setDetails(detailsData);
     };
     getMedicineDetailData();
-    console.log();
   }, [router.query.medicineId]);
 
   return (
@@ -203,4 +202,4 @@ const Detail = () => {
   );
 };
 
-export default Detail;
+export default Medicine;

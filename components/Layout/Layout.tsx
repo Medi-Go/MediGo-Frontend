@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { getStorageItem } from '../../utils/storage';
 import { loginUser, selectUser } from '../../store/slices/user';
 import { useAxiosInterceptor } from '../../hooks/useAxiosAuthInterceptor';
@@ -20,9 +20,9 @@ const Layout = ({ children }: LayoutProps) => {
   const pathname = router.pathname;
   useAxiosInterceptor();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, []);
 
   useEffect(() => {
     const autoLogin = async () => {
