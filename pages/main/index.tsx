@@ -4,6 +4,7 @@ import { setMedicines, selectMedicines } from '../../store/slices/medicines';
 import Medicines from '../../components/Medicines/Medicines';
 import { getMedicines } from '../../apis/medicine';
 import { useEffect } from 'react';
+import Image from 'next/image';
 
 const MainLogo = styled.div`
   margin-top: 20px;
@@ -29,12 +30,12 @@ const Main = () => {
       {
         <>
           <MainLogo>
-            {/* <Image
+            <Image
               src={'/images/mainLogo.png'}
               width={130}
               height={37}
               alt={'arrowRightBtn'}
-            /> */}
+            />
           </MainLogo>
           <Medicines title="복용중인 약" medicineData={medicineEffects} />
           <Medicines title="중복 약물" medicineData={duplicatedMedicines} />
