@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import Image from 'next/Image';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 
@@ -59,14 +58,7 @@ const Login: NextPage = () => {
   return (
     <LoginPageContainer>
       <ServiceTitle>MediGo</ServiceTitle>
-      <IconWrapper>
-        <Image
-          src={'/icon-512x512.png'}
-          width={250}
-          height={250}
-          alt={'medicineIcon'}
-        />
-      </IconWrapper>
+      <IconWrapper></IconWrapper>
       <BtnWrapper>
         <GoogleLoginBtn
           onClick={() => {
