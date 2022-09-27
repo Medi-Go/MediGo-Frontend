@@ -1,5 +1,10 @@
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import styled from 'styled-components';
+import Calendar from '../../assets/nav/calendar_nav.svg';
+import Graph from '../../assets/nav/graph_nav.svg';
+import MyPage from '../../assets/nav/mypage_nav.svg';
+import Ranking from '../../assets/nav/ranking_nav.svg';
 
 const Container = styled.nav`
   background-color: white;
@@ -39,15 +44,19 @@ const NavigationHeader = () => {
     <Container>
       <List>
         <Item onClick={routingPages}>
+          <Image src={MyPage} alt="mypage" />
           <div>main</div>
         </Item>
         <Item onClick={routingPages}>
+          <Image src={Calendar} alt="calendar" />
           <div>calendar</div>
         </Item>
         <Item onClick={routingPages}>
+          <Image src={Graph} alt="graph" />
           <div>graph</div>
         </Item>
         <Item onClick={routingPages}>
+          <Image src={Ranking} alt="ranking" />
           <div>profile</div>
         </Item>
       </List>

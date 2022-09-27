@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 const LoginPageContainer = styled.div`
   display: flex;
@@ -45,12 +46,12 @@ const Login = () => {
     <LoginPageContainer>
       <ServiceTitle>MediGo</ServiceTitle>
       <IconWrapper>
-        {/* <Image
+        <Image
           src={'/icon-512x512.png'}
           width={250}
           height={250}
           alt={'medicineIcon'}
-        /> */}
+        />
       </IconWrapper>
       <BtnWrapper>
         <GoogleLoginBtn
