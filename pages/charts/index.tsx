@@ -1,6 +1,5 @@
-import { NextPage } from 'next';
 import LineChart from '../../components/Charts/LineChart/LineChart';
 
-const Charts: NextPage = () => <LineChart />;
+const Charts = () => <LineChart />;
 
 export default Charts;

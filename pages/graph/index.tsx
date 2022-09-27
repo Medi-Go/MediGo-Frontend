@@ -1,7 +1,6 @@
-import type { NextPage } from 'next';
 import Chart from '../../components/Charts/LineChart/LineChart';
 
-const Graph: NextPage = () => {
+const Graph = () => {
   return (
     <>
       <Chart />
