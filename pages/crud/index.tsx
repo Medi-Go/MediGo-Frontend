@@ -1,4 +1,3 @@
-import type { NextPage } from 'next';
 import { useQuery } from 'react-query';
 import { getItemAll } from '../../utils/crud';
 import { queryKeys } from '../../utils/crud';
@@ -6,7 +5,7 @@ import Form from './form';
 import List from './list';
 import { useEffect } from 'react';
 
-const Crud: NextPage = () => {
+const Crud = () => {
   const { data, status } = useQuery(queryKeys.posts, getItemAll);
   useEffect(() => {
     console.log(status);
