@@ -25,6 +25,7 @@ export const userSlice = createSlice({
       state.isLogin = false;
     },
     updateUser: (state: UserState, action: PayloadAction<UserType>) => {
+      console.log('action', action.payload);
       state.user = action.payload;
     },
   },

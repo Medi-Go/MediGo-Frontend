@@ -1,5 +1,5 @@
 import { UserSignUpFormType } from '../interfaces/user';
-import axiosInstance from '../apis/axiosInstance';
+import axiosInstance, { axiosAuthInstance } from '../apis/axiosInstance';
 
 export const login = async (id: number) => {
   const { data } = await axiosInstance({
@@ -49,6 +49,29 @@ export const signUp = async ({
       carrier,
     },
   });
+
+  return data;
+};
+
+export const updateUserProfile = async ({
+  email,
+  name,
+  phoneNumber,
+  jumin,
+  carrier,
+}: UserSignUpFormType) => {
+  const { data } = await axiosAuthInstance({
+    method: 'PATCH',
+    url: `/api/v1/member`,
+    data: {
+      email,
+      name,
+      phoneNumber,
+      jumin,
+      carrier,
+    },
+  });
+  console.log('updateUserPRofile', data);
 
   return data;
 };
