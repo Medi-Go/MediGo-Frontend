@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import Image from 'next/image';
-import { signUp } from '../../apis/user';
-import { errorType } from '../../interfaces/error';
+import { updateUserProfile } from '../../apis/user';
 import { Select } from '../../components/index';
-import { AxiosError, AxiosResponse } from 'axios';
-import { setStorageItem } from '../../utils/storage';
 import { updateUser, selectUser } from '../../store/slices/user';
+import { openAlert } from '../../store/slices/flashAlert';
+import { AxiosError, AxiosResponse } from 'axios';
+import { errorType } from '../../interfaces/error';
 import { Button, CircularProgress, TextField } from '@mui/material';
 import { carrierOptions } from '../../constants/selectOptions';
 import styled from '@emotion/styled';
@@ -47,14 +47,6 @@ const MainLogo = styled(Image)`
   margin-top: 20px;
 `;
 
-interface FormDataType {
-  email: any;
-  name: string;
-  phoneNumber: string;
-  jumin: string;
-  carrier: string;
-}
-
 const Edit = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -86,21 +78,30 @@ const Edit = () => {
       jumin: yup.string().required('생년월일을 입력해주세요'),
       carrier: yup.string().required('통신사를 입력해주세요.'),
     }),
-    onSubmit: async (values) => {
-      const formData: FormDataType = {
-        email: values.email,
-        name: values.name,
-        phoneNumber: values.phoneNumber,
-        jumin: values.jumin,
-        carrier: values.carrier,
-      };
+    onSubmit: async (values, { setFieldError, setSubmitting }) => {
+      (async () => {
+        try {
+          const data = {
+            ...values,
+          };
+          const newUser = await updateUserProfile(data);
+          console.log('newuser', newUser);
+          dispatch(updateUser(newUser));
+          router.push(`/profile`);
+        } catch (e) {
+          const { response } = e as AxiosError;
+          const {
+            data: { errorCode },
+          } = response as AxiosResponse<errorType>;
+          setSubmitting(false);
+        }
+      })();
     },
   });
 
   const user = useSelector(selectUser);
 
   useEffect(() => {
-    console.log(user);
     setValues({
       email: user.user.email,
       name: user.user.name,
@@ -108,7 +109,7 @@ const Edit = () => {
       jumin: user.user.jumin,
       carrier: user.user.carrier,
     });
-  }, [user]);
+  }, []);
 
   return (
     <FormContainer>
