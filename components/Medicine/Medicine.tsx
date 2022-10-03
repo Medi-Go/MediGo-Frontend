@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import Image from 'next/image';
 import MedicineDetails from '../MedicineDetails/MedicineDetails';
 import {
   MedicineContainer,
   MedicineNameContainer,
-  MedicineIconImage,
   NameText,
   CountText,
 } from './style';
@@ -45,14 +43,6 @@ const Medicine = ({
       {type === 'medicineEffects' ? (
         <MedicineContainer onClick={showEffectDetails}>
           <MedicineNameContainer>
-            <MedicineIconImage>
-              <Image
-                src={'/icon-192x192.png'}
-                width={40}
-                height={40}
-                alt={'medicineIcon'}
-              />
-            </MedicineIconImage>
             <NameText>{effect}</NameText>
           </MedicineNameContainer>
           <CountText>{medicines.length}종</CountText>
@@ -60,14 +50,6 @@ const Medicine = ({
       ) : (
         <MedicineContainer onClick={showDuplicatedMedicineCases}>
           <MedicineNameContainer>
-            <MedicineIconImage>
-              <Image
-                src={'/icon-192x192.png'}
-                width={40}
-                height={40}
-                alt={'medicineIcon'}
-              />
-            </MedicineIconImage>
             <NameText>{medicineName}</NameText>
           </MedicineNameContainer>
           <CountText>{duplicatedMedicineCases.length}개</CountText>

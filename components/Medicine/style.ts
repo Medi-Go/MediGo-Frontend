@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 export const MedicineContainer = styled.div`
   display: flex;
   flex-direction: row;
-  background-color: #f4f5f7;
+  background-color: #f3f5fc;
   align-items: center;
   justify-content: space-between;
   margin-top: 20px;
@@ -18,20 +18,15 @@ export const MedicineNameContainer = styled.div`
   padding: 10px;
 `;
 
-export const MedicineIconImage = styled.div`
-  margin-right: 10px;
-  border-radius: 20px;
-  box-shadow: 0px 5px 5px lightgray;
-`;
-
 export const NameText = styled.div`
   font-size: 16px;
   font-weight: bold;
   color: #595959;
+  margin-left: 1rem;
 `;
 
 export const CountText = styled.div`
-  background-color: #bad1ff;
+  background-color: #d6dfef;
   padding: 10px;
   color: #595959;
   width: 30%;
