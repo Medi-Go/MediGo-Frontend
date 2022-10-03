@@ -9,6 +9,9 @@ import {
   MedicineIconImage,
   MedicineName,
   MedicineRemainCount,
+  PrescriptionIconImage,
+  DuplicatedCaseDate,
+  DuplicatedCaseMedicalName,
 } from './style';
 
 interface MedicineDetailProps {
@@ -36,18 +39,27 @@ const MedicineDetail = ({ medicine, duplicatedCase }: MedicineDetailProps) => {
               alt={'medicineIcon'}
             />
           </MedicineIconImage>
-          {/* <div>{medicine.treatDate}</div> */}
           <MedicineName>{medicine.medicineName.slice(1, 6)}</MedicineName>
           <MedicineRemainCount>{medicine.remainCount}</MedicineRemainCount>
         </MedicineDetailContainer>
       )}
       {!!duplicatedCase && (
         <MedicineDetailContainer>
-          <div>{duplicatedCase.treatDate}</div>
-          <div>{duplicatedCase.treatMedicalName}</div>
-          <div>{duplicatedCase.totalDayCount}</div>
+          <PrescriptionIconImage>
+            <Image
+              src={'/images/prescription.svg'}
+              width={40}
+              height={40}
+              alt={'medicineIcon'}
+            />
+          </PrescriptionIconImage>
+          <DuplicatedCaseDate>{duplicatedCase.treatDate}</DuplicatedCaseDate>
+          <DuplicatedCaseMedicalName>
+            {duplicatedCase.treatMedicalName}
+          </DuplicatedCaseMedicalName>
+          {/* <div>{duplicatedCase.totalDayCount}</div>
           <div>{duplicatedCase.administerInterval}</div>
-          <div>{duplicatedCase.dailyCount}</div>
+          <div>{duplicatedCase.dailyCount}</div> */}
         </MedicineDetailContainer>
       )}
     </>
