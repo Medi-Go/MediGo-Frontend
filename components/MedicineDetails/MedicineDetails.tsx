@@ -4,6 +4,7 @@ import {
   MedicineType,
   DuplicatedMedicineCaseType,
 } from '../../interfaces/medicines';
+import { MedicineDetailsContainer } from './style';
 
 interface MedicineDetailsProps {
   medicines?: MedicineType[];
@@ -17,18 +18,18 @@ const MedicineDetails = ({
   return (
     <>
       {!!medicines && (
-        <div>
+        <MedicineDetailsContainer>
           {medicines.map((medicine) => (
             <MedicineDetail key={medicine.medicineId} medicine={medicine} />
           ))}
-        </div>
+        </MedicineDetailsContainer>
       )}
       {!!duplicatedMedicineCases && (
-        <div>
+        <MedicineDetailsContainer>
           {duplicatedMedicineCases.map((duplicatedCase, idx) => (
             <MedicineDetail key={idx} duplicatedCase={duplicatedCase} />
           ))}
-        </div>
+        </MedicineDetailsContainer>
       )}
     </>
   );
