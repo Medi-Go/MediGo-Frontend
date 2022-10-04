@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import InfoModal from '../../components/InfoModal/InfoModal';
 import { useSelector } from 'react-redux';
@@ -25,6 +25,10 @@ const Input = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [prescriptions, setPrescription] = useState([]);
 
+  useEffect(() => {
+    getPrescriptions();
+  }, []);
+
   const handleCreateModalOpen = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     setIsModalOpen(true);
@@ -35,13 +39,15 @@ const Input = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    getPrescriptions();
     createPrescriptionEditData();
     console.log(e);
   };
-  // const handleEditPrescription = (e: React.MouseEvent<HTMLElement>) => {
-  //   e.stopPropagation();
-  // };
+
+  const getPrescriptions = async () => {
+    const data = await getInputInfo(month);
+    console.log('data', data);
+    setPrescription(data.prescriptions);
+  };
 
   const createPrescriptionEditData = async () => {
     const prescriptionsData = [];
@@ -64,12 +70,6 @@ const Input = () => {
   };
 
   const { month } = useSelector(selectPrescription);
-
-  const getPrescriptions = async () => {
-    const data = await getInputInfo(month);
-    console.log('data', data);
-    setPrescription(data.prescriptions);
-  };
 
   return (
     <>
