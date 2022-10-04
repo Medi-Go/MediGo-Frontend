@@ -1,26 +1,47 @@
+import {
+  MedicineInfoContainer,
+  PrescriptionInfoContainer,
+  PrescriptionInfoText,
+  PrescriptionMedicineInfoContainer,
+  PrescriptionMedicineInfoText,
+  TreatsContainer,
+  TreatsTreatType,
+  TreatsTreatMedicalName,
+} from './style';
+
 const CalendarInfo = ({ calendarDataType, calendarData }) => {
   return (
-    <>
+    <MedicineInfoContainer>
       {calendarDataType === '투약내역'
         ? calendarData.prescriptions.map((prescription) => (
-            <div key={prescription.prescriptionId}>
-              <div>{prescription.treatMedicalName}</div>
-              {prescription.medicineDetails.map((detail) => (
-                <>
-                  <div>{detail.medicineName}</div>
-                  <div>{detail.medicineEffect}</div>
-                  <div>{detail.administerCount}</div>
-                </>
+            <PrescriptionInfoContainer key={prescription.prescriptionId}>
+              <PrescriptionInfoText>
+                {prescription.treatMedicalName}
+              </PrescriptionInfoText>
+              {prescription.medicineDetails.map((detail, idx) => (
+                <PrescriptionMedicineInfoContainer key={idx}>
+                  <PrescriptionMedicineInfoText>
+                    {detail.medicineName}
+                  </PrescriptionMedicineInfoText>
+                  <PrescriptionMedicineInfoText>
+                    {detail.medicineEffect}
+                  </PrescriptionMedicineInfoText>
+                  <PrescriptionMedicineInfoText>
+                    {detail.administerCount}
+                  </PrescriptionMedicineInfoText>
+                </PrescriptionMedicineInfoContainer>
               ))}
-            </div>
+            </PrescriptionInfoContainer>
           ))
         : calendarData.treatments.map((treatment, idx) => (
-            <div key={idx}>
-              <div>{treatment.treatType}</div>
-              <div>{treatment.treatMedicalName}</div>
-            </div>
+            <TreatsContainer key={idx}>
+              <TreatsTreatType>{treatment.treatType}</TreatsTreatType>
+              <TreatsTreatMedicalName>
+                {treatment.treatMedicalName}
+              </TreatsTreatMedicalName>
+            </TreatsContainer>
           ))}
-    </>
+    </MedicineInfoContainer>
   );
 };
 

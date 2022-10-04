@@ -1,4 +1,4 @@
-import { Card, Typography, Button, TextField } from '@mui/material';
+import { Card, Button, TextField } from '@mui/material';
 import styled from '@emotion/styled';
 export const PreviewImage = styled.img`
   width: 100%;
