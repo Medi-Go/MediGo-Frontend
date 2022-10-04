@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import styled from 'styled-components';
@@ -8,6 +8,7 @@ import {
 } from '../../../apis/calendar';
 import CalendarHeader from '../CalendarHeader/CalendarHeader';
 import CalendarInfo from '../CalendarInfo/CalendarInfo';
+import { Button } from '@mui/material';
 
 const CalendarContainer = styled.div`
   display: flex;
@@ -15,19 +16,15 @@ const CalendarContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 20px;
+  width: 100%;
 `;
 
-const CalendarDayInfoContainer = styled.div`
+const CalendarDataTypeBtnContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
   justify-content: space-between;
-  border-radius: 10px;
-  background-color: lightgray;
-  padding: 20px;
-  width: 10rem;
-  height: 5rem;
-  font-size: 15px;
+  margin-top: 2rem;
+  width: 55%;
 `;
 
 type MedicineProps = {
@@ -43,13 +40,19 @@ type MedicineProps = {
   left: number;
 };
 
-const CalendarComponent = ({ calendarDataType }) => {
+const CalendarComponent = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [calendarTreatments, setCalendarTreatments] = useState([]);
   const [calendarPrescriptions, setCalendarPrescriptions] = useState([]);
+  const [calendarDataType, setCalendarDataType] = useState('');
+
+  const handleClickDataTypeBtn = (e) => {
+    setCalendarDataType(e.target.innerHTML.slice(0, 4));
+  };
 
   const selectDate = async (date: Date) => {
     setSelectedDate(date);
+    setCalendarDataType('');
     const formedDate = Number(String(createDateFormat(date)).slice(0, 6));
 
     const calendarTreatmentsData = await getCalendarTreatments(formedDate);
@@ -101,21 +104,40 @@ const CalendarComponent = ({ calendarDataType }) => {
           />
         )}
       />
-      <CalendarDayInfoContainer>
-        {calendarDataType === '투약내역'
-          ? getFilteredData(calendarPrescriptions) && (
-              <CalendarInfo
-                calendarDataType={calendarDataType}
-                calendarData={getFilteredData(calendarPrescriptions)}
-              />
-            )
-          : getFilteredData(calendarTreatments) && (
-              <CalendarInfo
-                calendarDataType={calendarDataType}
-                calendarData={getFilteredData(calendarTreatments)}
-              />
-            )}
-      </CalendarDayInfoContainer>
+
+      <CalendarDataTypeBtnContainer>
+        <Button
+          onClick={handleClickDataTypeBtn}
+          variant="contained"
+          style={{ backgroundColor: '#385885' }}
+        >
+          투약내역
+        </Button>
+        <Button
+          onClick={handleClickDataTypeBtn}
+          variant="contained"
+          style={{ backgroundColor: '#385885' }}
+        >
+          진료내역
+        </Button>
+      </CalendarDataTypeBtnContainer>
+      {calendarDataType && (
+        <>
+          {calendarDataType === '투약내역'
+            ? getFilteredData(calendarPrescriptions) && (
+                <CalendarInfo
+                  calendarDataType={calendarDataType}
+                  calendarData={getFilteredData(calendarPrescriptions)}
+                />
+              )
+            : getFilteredData(calendarTreatments) && (
+                <CalendarInfo
+                  calendarDataType={calendarDataType}
+                  calendarData={getFilteredData(calendarTreatments)}
+                />
+              )}
+        </>
+      )}
     </CalendarContainer>
   );
 };

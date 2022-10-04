@@ -5,22 +5,13 @@ import CalendarComponent from '../../components/Calendar/CalendarComponent/Calen
 const CalendarContainer = styled.div`
   width: 100%;
   height: 100%;
+  margin-top: 1rem;
 `;
 
 const Calendar = () => {
-  const [calendarDataType, setCalendarDataType] = useState('투약내역');
-
-  const clickBtn = (e) => {
-    setCalendarDataType(e.target.innerHTML);
-  };
   return (
     <CalendarContainer>
-      <div>
-        <button onClick={clickBtn}>투약내역</button>
-        <button onClick={clickBtn}>진료내역</button>
-      </div>
-
-      <CalendarComponent calendarDataType={calendarDataType} />
+      <CalendarComponent />
     </CalendarContainer>
   );
 };
