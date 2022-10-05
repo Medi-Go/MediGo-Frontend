@@ -29,14 +29,6 @@ const Main = () => {
     <>
       {
         <>
-          <MainLogo>
-            <Image
-              src={'/images/mainLogo.png'}
-              width={130}
-              height={37}
-              alt={'arrowRightBtn'}
-            />
-          </MainLogo>
           <Medicines title="복용중인 약" medicineData={medicineEffects} />
           <Medicines title="중복 약물" medicineData={duplicatedMedicines} />
         </>
