@@ -4,11 +4,9 @@ import { setMedicines, selectMedicines } from '../../store/slices/medicines';
 import Medicines from '../../components/Medicines/Medicines';
 import { getMedicines } from '../../apis/medicine';
 import { useEffect } from 'react';
-import Image from 'next/image';
 
-const MainLogo = styled.div`
-  margin-top: 20px;
-  width: 150px;
+const MainCPageontainer = styled.div`
+  margin-top: 2.5rem;
 `;
 
 const Main = () => {
@@ -26,14 +24,10 @@ const Main = () => {
   }, []);
 
   return (
-    <>
-      {
-        <>
-          <Medicines title="복용중인 약" medicineData={medicineEffects} />
-          <Medicines title="중복 약물" medicineData={duplicatedMedicines} />
-        </>
-      }
-    </>
+    <MainCPageontainer>
+      <Medicines title="복용중인 약" medicineData={medicineEffects} />
+      <Medicines title="중복 약물" medicineData={duplicatedMedicines} />
+    </MainCPageontainer>
   );
 };
 
