@@ -34,8 +34,8 @@ const MedicineDetail = ({ medicine, duplicatedCase }: MedicineDetailProps) => {
           <MedicineIconImage>
             <Image
               src={'/icon-192x192.png'}
-              width={55}
-              height={55}
+              width={40}
+              height={40}
               alt={'medicineIcon'}
             />
           </MedicineIconImage>
