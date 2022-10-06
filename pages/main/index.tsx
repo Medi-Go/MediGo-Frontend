@@ -16,8 +16,6 @@ const Main = () => {
     const getMyMedicinesData = async () => {
       const { medicineEffects, duplicatedMedicines } = await getMedicines();
       dispatch(setMedicines({ medicineEffects, duplicatedMedicines }));
-      console.log('medicineEffects', medicineEffects);
-      console.log('duplicatedMedicines', duplicatedMedicines);
     };
 
     getMyMedicinesData();
