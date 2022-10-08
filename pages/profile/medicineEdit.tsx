@@ -35,11 +35,12 @@ const PrescriptionInput = styled.input`
 const MedicineEdit = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [prescriptions, setPrescription] = useState([]);
-  const dispatch = useDispatch();
+  const { month } = useSelector(selectPrescription);
 
   useEffect(() => {
     getPrescriptions();
-  }, []);
+    console.log('month', month);
+  }, [month]);
 
   const handleCreateModalOpen = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
@@ -80,8 +81,6 @@ const MedicineEdit = () => {
 
     await patchInputInfo(prescriptionsData);
   };
-
-  const { month } = useSelector(selectPrescription);
 
   return (
     <>

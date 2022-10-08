@@ -70,7 +70,7 @@ const CalendarComponent = () => {
         ? '0' + String(date.getMonth() + 1)
         : String(date.getMonth() + 1);
     const day =
-      date.getMonth() + 1 < 10
+      date.getDate() < 10
         ? '0' + String(date.getDate())
         : String(date.getDate());
     return Number(year + month + day);

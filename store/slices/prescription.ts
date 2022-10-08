@@ -6,7 +6,7 @@ export interface PrescriptionState {
 }
 
 const initialState: PrescriptionState = {
-  month: 1,
+  month: 0,
 };
 
 export const prescriptionSlice = createSlice({
