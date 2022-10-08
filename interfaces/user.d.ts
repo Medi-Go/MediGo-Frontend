@@ -7,6 +7,8 @@ export interface UserType {
   jumin: string;
   carrier: string;
   phoneNumber: string;
+  lastMyDataLoadUpdateTime: Date;
+  lastMyDataDetailUpdateTime: Date;
 }
 
 export interface UserSignUpFormType {

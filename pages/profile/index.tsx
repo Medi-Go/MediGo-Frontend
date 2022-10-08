@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../store/slices/user';
-import { Button, Avatar } from '@mui/material';
+import { Button, Avatar, IconButton } from '@mui/material';
+import UpdateIcon from '@mui/icons-material/Update';
+import InputIcon from '@mui/icons-material/Input';
 import styled from '@emotion/styled';
 
 const ProfilePageContainer = styled.div`
@@ -11,7 +13,28 @@ const ProfilePageContainer = styled.div`
 `;
 
 const AvatarContainer = styled.div`
-  margin-top: 10rem;
+  margin-top: 7rem;
+`;
+
+const MyDataUpdateContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 2rem;
+`;
+
+const MyDataUpdateWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+`;
+const MyDataUpdateTitle = styled.div`
+  font-size: 16px;
+  font-weight: bold;
+`;
+const MyDataUpdateInfo = styled.div`
+  font-size: 14px;
+  margin-top: 0.5rem;
 `;
 
 const EditBtnContainer = styled.div`
@@ -28,46 +51,62 @@ const UserName = styled.div`
   margin-top: 1.5rem;
 `;
 
-const EditBtn = styled(Button)``;
+const EditBtn = styled(Button)`
+  margin-top: 2rem;
+`;
 
 const Profile = () => {
   const router = useRouter();
+  const { user } = useSelector(selectUser);
 
   const handleMoveInputPage = () => {
-    router.push('/input');
+    router.push('/profile/medicineEdit');
   };
 
   const handleMoveProfileEditPage = () => {
     router.push('/profile/edit');
   };
 
-  const { user } = useSelector(selectUser);
   return (
     <ProfilePageContainer>
       <AvatarContainer>
         <Avatar
           src={user.profileImageUrl}
           alt=""
-          sx={{ width: '7.5rem', height: '7.5rem' }}
+          sx={{ width: '6.5rem', height: '6.5rem' }}
         />
       </AvatarContainer>
       <UserName>{user.name}</UserName>
-      <EditBtnContainer>
-        <EditBtn
-          onClick={handleMoveProfileEditPage}
-          variant="contained"
-          style={{ backgroundColor: '#89b0e1' }}
-        >
-          회원정보 수정
-        </EditBtn>
-        <EditBtn
-          onClick={handleMoveInputPage}
-          variant="contained"
-          style={{ backgroundColor: '#89b0e1' }}
-        >
-          약물정보 수정
-        </EditBtn>
-      </EditBtnContainer>
+      <EditBtn
+        onClick={handleMoveProfileEditPage}
+        variant="contained"
+        style={{ backgroundColor: '#89b0e1' }}
+      >
+        회원정보 수정
+      </EditBtn>
+      <MyDataUpdateContainer>
+        <MyDataUpdateWrapper>
+          <MyDataUpdateTitle>약물정보 업데이트 날짜</MyDataUpdateTitle>
+          <MyDataUpdateInfo>
+            {user.lastMyDataLoadUpdateTime + ''}
+          </MyDataUpdateInfo>
+          <IconButton style={{ color: '#385885' }}>
+            <UpdateIcon />
+          </IconButton>
+        </MyDataUpdateWrapper>
+        <MyDataUpdateWrapper>
+          <MyDataUpdateTitle>투약횟수 업데이트 날짜</MyDataUpdateTitle>
+          <MyDataUpdateInfo>
+            {user.lastMyDataDetailUpdateTime + ''}
+          </MyDataUpdateInfo>
+          <IconButton
+            onClick={handleMoveInputPage}
+            style={{ color: '#385885' }}
+          >
+            <InputIcon />
+          </IconButton>
+        </MyDataUpdateWrapper>
+      </MyDataUpdateContainer>
     </ProfilePageContainer>
   );
 };

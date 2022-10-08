@@ -71,7 +71,6 @@ export const updateUserProfile = async ({
       carrier,
     },
   });
-  console.log('updateUserPRofile', data);
 
   return data;
 };

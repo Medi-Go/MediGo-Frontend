@@ -7,6 +7,8 @@ export const getInputInfo = async (month: number) => {
     method: 'GET',
   });
 
+  console.log('getinputinfo', data);
+
   return data;
 };
 

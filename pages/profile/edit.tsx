@@ -43,8 +43,10 @@ export const CarrierWrapper = styled.div`
   width: calc(50%);
 `;
 
-const MainLogo = styled(Image)`
+const ProfileEditPageTitle = styled.div`
   margin-top: 20px;
+  font-size: 1.3rem;
+  font-weight: bold;
 `;
 
 const Edit = () => {
@@ -113,13 +115,7 @@ const Edit = () => {
 
   return (
     <FormContainer>
-      <MainLogo
-        src={'/images/mainLogo.png'}
-        width={130}
-        height={40}
-        alt={'arrowRightBtn'}
-      />
-      <div>회원정보 수정</div>
+      <ProfileEditPageTitle>회원정보 수정</ProfileEditPageTitle>
       <StyledForm onSubmit={handleSubmit}>
         <FormInputContainer>
           <TextField
