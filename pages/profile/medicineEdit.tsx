@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import InfoModal from '../../components/InfoModal/InfoModal';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectPrescription } from '../../store/slices/prescription';
 import { getInputInfo, patchInputInfo } from '../../apis/info';
 import { getPrescriptionInputValue } from '../../utils/input';
@@ -35,6 +35,7 @@ const PrescriptionInput = styled.input`
 const MedicineEdit = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [prescriptions, setPrescription] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getPrescriptions();
@@ -57,7 +58,6 @@ const MedicineEdit = () => {
 
   const getPrescriptions = async () => {
     const data = await getInputInfo(month);
-    console.log('data', data);
     setPrescription(data.prescriptions);
   };
 
@@ -85,7 +85,7 @@ const MedicineEdit = () => {
 
   return (
     <>
-      <Button onClick={handleCreateModalOpen}>생성</Button>
+      <Button onClick={handleCreateModalOpen}>투약 정보 불러오기</Button>
       <InfoModal isOpen={isModalOpen} onClose={handleCreateModalClose} />
       <form onSubmit={handleSubmit}>
         {prescriptions.map((prescription) => (
