@@ -6,22 +6,33 @@ import { selectPrescription } from '../../store/slices/prescription';
 import { getInputInfo, patchInputInfo } from '../../apis/info';
 import { getPrescriptionInputValue } from '../../utils/input';
 import styled from '@emotion/styled';
-export const PrescriptionContainer = styled.div`
+
+const PrescriptionContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  height: 3rem;
+  flex-direction: column;
+  margin: 2rem 0;
 `;
 
-export const PrescriptionInfo = styled.div`
+const PrescriptionInfoWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const PrescriptionMedicineInfoWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const PrescriptionInfo = styled.div`
   margin: 10px;
 `;
 
-export const PrescriptionInput = styled.input`
+const PrescriptionInput = styled.input`
   margin: 5px;
   width: 3rem;
 `;
 
-const Input = () => {
+const MedicineEdit = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [prescriptions, setPrescription] = useState([]);
 
@@ -36,6 +47,7 @@ const Input = () => {
   const handleCreateModalClose = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     setIsModalOpen(false);
+    getPrescriptions();
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -78,27 +90,42 @@ const Input = () => {
       <form onSubmit={handleSubmit}>
         {prescriptions.map((prescription) => (
           <PrescriptionContainer key={prescription.prescriptionId}>
-            <PrescriptionInfo>{prescription.treatDate}</PrescriptionInfo>
-            <PrescriptionInfo>{prescription.treatMedicalName}</PrescriptionInfo>
-            <PrescriptionInfo>{prescription.treatType}</PrescriptionInfo>
-            <PrescriptionInput
-              id={`administerInterval-${prescription.prescriptionId}`}
-              name="administerInterval"
-            ></PrescriptionInput>
-            <PrescriptionInput
-              id={`dailyCount-${prescription.prescriptionId}`}
-              name="dailyCount"
-            ></PrescriptionInput>
-            <PrescriptionInput
-              id={`totalDayCount-${prescription.prescriptionId}`}
-              name="totalDayCount"
-            ></PrescriptionInput>
+            <PrescriptionInfoWrapper>
+              <PrescriptionInfo>{prescription.treatDate}</PrescriptionInfo>
+              <PrescriptionInfo>
+                {prescription.treatMedicalName}
+              </PrescriptionInfo>
+              <PrescriptionInfo>{prescription.treatType}</PrescriptionInfo>
+            </PrescriptionInfoWrapper>
+            <PrescriptionInfoWrapper>
+              <PrescriptionMedicineInfoWrapper>
+                <div>투약일수</div>
+                <PrescriptionInput
+                  id={`administerInterval-${prescription.prescriptionId}`}
+                  name="administerInterval"
+                ></PrescriptionInput>
+              </PrescriptionMedicineInfoWrapper>
+              <PrescriptionMedicineInfoWrapper>
+                <div>투약횟수</div>
+                <PrescriptionInput
+                  id={`dailyCount-${prescription.prescriptionId}`}
+                  name="dailyCount"
+                ></PrescriptionInput>
+              </PrescriptionMedicineInfoWrapper>
+              <PrescriptionMedicineInfoWrapper>
+                <div>총 투약횟수</div>
+                <PrescriptionInput
+                  id={`totalDayCount-${prescription.prescriptionId}`}
+                  name="totalDayCount"
+                ></PrescriptionInput>
+              </PrescriptionMedicineInfoWrapper>
+            </PrescriptionInfoWrapper>
           </PrescriptionContainer>
         ))}
-        <Button type="submit">Edit</Button>
+        <Button type="submit">약물 업데이트</Button>
       </form>
     </>
   );
 };
 
-export default Input;
+export default MedicineEdit;

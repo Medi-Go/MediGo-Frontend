@@ -34,7 +34,7 @@ const Profile = () => {
   const router = useRouter();
 
   const handleMoveInputPage = () => {
-    router.push('/input');
+    router.push('/profile/medicineEdit');
   };
 
   const handleMoveProfileEditPage = () => {

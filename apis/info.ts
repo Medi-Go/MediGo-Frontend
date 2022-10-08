@@ -6,6 +6,7 @@ export const getInputInfo = async (month: number) => {
     url: `/api/v1/info-input/${month}`,
     method: 'GET',
   });
+  console.log('getInputInfo', data);
 
   return data;
 };

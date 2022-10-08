@@ -5,7 +5,7 @@ import CalendarComponent from '../../components/Calendar/CalendarComponent/Calen
 const CalendarContainer = styled.div`
   width: 100%;
   height: 100%;
-  margin-top: 1rem;
+  margin-top: 3rem;
 `;
 
 const Calendar = () => {
