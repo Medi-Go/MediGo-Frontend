@@ -39,7 +39,6 @@ const MedicineEdit = () => {
 
   useEffect(() => {
     getPrescriptions();
-    console.log('month', month);
   }, [month]);
 
   const handleCreateModalOpen = (e: React.MouseEvent<HTMLElement>) => {

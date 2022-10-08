@@ -39,7 +39,7 @@ const MedicineDetail = ({ medicine, duplicatedCase }: MedicineDetailProps) => {
               alt={'medicineIcon'}
             />
           </MedicineIconImage>
-          <MedicineName>{medicine.medicineName.slice(1, 6)}</MedicineName>
+          <MedicineName>{medicine.medicineName}</MedicineName>
           <MedicineRemainCount>{medicine.remainCount}</MedicineRemainCount>
         </MedicineDetailContainer>
       )}
