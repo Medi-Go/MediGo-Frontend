@@ -23,7 +23,7 @@ export const getAuthUser = async () => {
 };
 
 export const logout = async () => {
-  const { data } = await axiosInstance({
+  const { data } = await axiosAuthInstance({
     url: '/api/v1/logout',
     method: 'POST',
   });

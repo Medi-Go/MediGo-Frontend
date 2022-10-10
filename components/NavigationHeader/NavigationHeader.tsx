@@ -13,14 +13,15 @@ import {
   Button,
 } from '@mui/material';
 import {
-  HeaderContainer,
   MenuWrapper,
   LogoWrapper,
-  LoginWrapper,
   NavContainer,
   ProfileText,
   ProfileWrapper,
 } from './style';
+import { removeStorageItem } from '../../utils/storage';
+import { logout } from '../../apis/user';
+import { logoutUser } from '../../store/slices/user';
 
 const NavigationHeader = () => {
   const user = useSelector(selectUser);
@@ -46,9 +47,11 @@ const NavigationHeader = () => {
     setMenu(null);
   };
 
-  const handleLogin = () => {
-    handleMenuClose();
-    handleModalClose();
+  const handleLogout = async () => {
+    console.log('handlelogut');
+    await logout();
+    removeStorageItem('token');
+    dispatch(logoutUser());
   };
 
   return (
@@ -123,7 +126,7 @@ const NavigationHeader = () => {
                     <ProfileText>Profile</ProfileText>
                   </Link>
                 </MenuItem>
-                <MenuItem>
+                <MenuItem onClick={handleLogout}>
                   <Link href={`/login`}>
                     <ProfileText>Logout</ProfileText>
                   </Link>
