@@ -5,11 +5,9 @@ import {
 } from '../../interfaces/medicines';
 import {
   MedicineDetailContainer,
-  MedicineName,
-  MedicineNameText,
-  MedicineRemainCount,
-  DuplicatedCaseDate,
-  DuplicatedCaseMedicalName,
+  DetailName,
+  DetailNameText,
+  DetailNumberText,
 } from './style';
 
 interface MedicineDetailProps {
@@ -27,20 +25,20 @@ const MedicineDetail = ({ medicine, duplicatedCase }: MedicineDetailProps) => {
   };
   return (
     <>
-      {!!medicine && (
+      {medicine && (
         <MedicineDetailContainer onClick={goToDetail}>
-          <MedicineName>
-            <MedicineNameText>{medicine.medicineName}</MedicineNameText>
-          </MedicineName>
-          <MedicineRemainCount>{medicine.remainCount}</MedicineRemainCount>
+          <DetailName>
+            <DetailNameText>{medicine.medicineName}</DetailNameText>
+          </DetailName>
+          <DetailNumberText>{medicine.remainCount}</DetailNumberText>
         </MedicineDetailContainer>
       )}
-      {!!duplicatedCase && (
+      {duplicatedCase && (
         <MedicineDetailContainer>
-          <DuplicatedCaseDate>{duplicatedCase.treatDate}</DuplicatedCaseDate>
-          <DuplicatedCaseMedicalName>
-            {duplicatedCase.treatMedicalName}
-          </DuplicatedCaseMedicalName>
+          <DetailName>
+            <DetailNameText>{duplicatedCase.treatMedicalName}</DetailNameText>
+          </DetailName>
+          <DetailNumberText>{duplicatedCase.treatDate}</DetailNumberText>
         </MedicineDetailContainer>
       )}
     </>

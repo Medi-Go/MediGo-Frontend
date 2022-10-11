@@ -6,7 +6,7 @@ export const MedicineDetailContainer = styled.div`
   align-items: center;
 `;
 
-export const MedicineName = styled.div`
+export const DetailName = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,7 +17,7 @@ export const MedicineName = styled.div`
   width: 4.5rem;
 `;
 
-export const MedicineNameText = styled.div`
+export const DetailNameText = styled.div`
   font-size: 0.7rem;
   font-weight: bold;
   text-overflow: ellipsis;
@@ -25,17 +25,7 @@ export const MedicineNameText = styled.div`
   white-space: nowrap;
 `;
 
-export const MedicineRemainCount = styled.div`
+export const DetailNumberText = styled.div`
   font-size: 0.6rem;
-  margin-top: 0.2rem;
-`;
-
-export const DuplicatedCaseDate = styled.div`
-  font-size: 12px;
-  font-weight: bold;
-`;
-
-export const DuplicatedCaseMedicalName = styled.div`
-  font-size: 11px;
   margin-top: 0.2rem;
 `;
