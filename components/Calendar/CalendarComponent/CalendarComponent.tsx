@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import {
   getCalendarTreatments,
   getCalendarPrescriptions,
 } from '../../../apis/calendar';
-import CalendarHeader from '../CalendarHeader/CalendarHeader';
 import CalendarInfo from '../CalendarInfo/CalendarInfo';
-import { Button } from '@mui/material';
+import { Button, TextField } from '@mui/material';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
+import dayjs, { Dayjs } from 'dayjs';
 
 const CalendarContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
-  width: 100%;
 `;
 
 const CalendarDataTypeBtnContainer = styled.div`
@@ -41,7 +40,7 @@ type MedicineProps = {
 };
 
 const CalendarComponent = () => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(dayjs('2022-10-12'));
   const [calendarTreatments, setCalendarTreatments] = useState([]);
   const [calendarPrescriptions, setCalendarPrescriptions] = useState([]);
   const [calendarDataType, setCalendarDataType] = useState('');
@@ -50,12 +49,12 @@ const CalendarComponent = () => {
     setCalendarDataType(e.target.innerHTML.slice(0, 4));
   };
 
-  const selectDate = async (date: Date) => {
+  const selectDate = async (date) => {
     setSelectedDate(date);
     setCalendarDataType('');
     const formedDate = Number(String(createDateFormat(date)).slice(0, 6));
-
     const calendarTreatmentsData = await getCalendarTreatments(formedDate);
+
     const calendarPrescriptionsData = await getCalendarPrescriptions(
       formedDate,
     );
@@ -63,16 +62,11 @@ const CalendarComponent = () => {
     setCalendarPrescriptions(calendarPrescriptionsData.calendarPrescriptions);
   };
 
-  const createDateFormat = (date: Date) => {
-    const year = String(date.getFullYear());
+  const createDateFormat = (date) => {
+    const year = String(date.$y);
     const month =
-      date.getMonth() + 1 < 10
-        ? '0' + String(date.getMonth() + 1)
-        : String(date.getMonth() + 1);
-    const day =
-      date.getDate() < 10
-        ? '0' + String(date.getDate())
-        : String(date.getDate());
+      date.$M + 1 < 10 ? '0' + String(date.$M + 1) : String(date.$M + 1);
+    const day = date.$D < 10 ? '0' + String(date.$D) : String(date.$D);
     return Number(year + month + day);
   };
 
@@ -84,27 +78,16 @@ const CalendarComponent = () => {
 
   return (
     <CalendarContainer>
-      <DatePicker
-        selected={selectedDate}
-        onChange={selectDate}
-        inline
-        renderCustomHeader={({
-          date,
-          decreaseMonth,
-          increaseMonth,
-          prevMonthButtonDisabled,
-          nextMonthButtonDisabled,
-        }) => (
-          <CalendarHeader
-            date={date}
-            decreaseMonth={decreaseMonth}
-            increaseMonth={increaseMonth}
-            prevMonthButtonDisabled={prevMonthButtonDisabled}
-            nextMonthButtonDisabled={nextMonthButtonDisabled}
-          />
-        )}
-      />
-
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <StaticDatePicker
+          displayStaticWrapperAs="desktop"
+          value={selectedDate}
+          onChange={selectDate}
+          renderInput={(params) => (
+            <TextField {...params} sx={{ width: '100%' }} />
+          )}
+        />
+      </LocalizationProvider>
       <CalendarDataTypeBtnContainer>
         <Button
           onClick={handleClickDataTypeBtn}

@@ -8,12 +8,8 @@ import {
   TreatsTreatType,
   TreatsTreatMedicalName,
 } from './style';
-import { useEffect } from 'react';
 
 const CalendarInfo = ({ calendarDataType, calendarData }) => {
-  useEffect(() => {
-    console.log(calendarDataType, 'calendarData', calendarData);
-  }, []);
   return (
     <MedicineInfoContainer>
       {calendarDataType === '투약내역'
