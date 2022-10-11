@@ -3,124 +3,127 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { getMedicineDetail } from '../../apis/medicine';
 import { DetailsType } from '../../interfaces/detail';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { IconButton } from '@mui/material';
 
 const MedicineDetailContainer = styled.div`
-  margin-top: 20px;
-  margin-left: 20px;
+  margin: 2.4rem 2rem;
 `;
 
 const MedicineNameText = styled.div`
-  font-size: 22px;
+  font-size: 1.3rem;
   font-weight: bold;
-  color: #595959;
+  color: #385885;
+  margin-bottom: 0.8rem;
+`;
+
+const MedicineGroupText = styled.div`
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #929292;
 `;
 
 const MedicineInfoCaseContainer = styled.div``;
 
-const EffectText = styled.div`
-  font-size: 16px;
-  font-weight: bold;
-  color: #595959;
-  margin-top: 10px;
-`;
-
-const TabooTitleText = styled.div`
-  font-size: 22px;
-  font-weight: bold;
-  color: #595959;
-  margin-top: 20px;
-`;
-
-const TabooView = styled.div`
+const MedicineIngredientWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: ${(props) =>
+    props.ingredientClicked ? 'flex-start' : 'center'};
   justify-content: space-between;
-  width: 85%;
 `;
 
-const DurInfoContainer = styled.div`
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #d2e9ff;
-  border-radius: 10px;
+const MedicineKpictWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: ${(props) => (props.kpicClicked ? 'flex-start' : 'center')};
+  justify-content: space-between;
 `;
 
-const AgeTabooText = styled.div`
+const MedicineIngredientInfos = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: 18px;
+`;
+
+const InfoText = styled.div`
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #929292;
+`;
+
+const InfoList = styled.div`
+  padding: 1rem;
+  border: 1px solid #929292;
+  border-radius: 2rem;
+`;
+
+const InfoWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const MultiInfoWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: ${(props) => (props.ingredientClicked ? '0' : '1rem')};
+  :last-child {
+    margin-bottom: 0;
+  }
+`;
+
+const InfoIdxText = styled.div`
   color: #595959;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-right: 1.5rem;
+`;
+
+const CategoryTitle = styled.div`
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #000000;
+  margin-top: 2rem;
+  margin-bottom: 0.8rem;
+`;
+
+const IngredientIconButton = styled(IconButton)`
+  visibility: ${(props) => (props.isOverOne ? 'visible' : 'hidden')};
 `;
 
 const TabooContainer = styled.div`
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #d2e9ff;
-  border-radius: 10px;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+  background-color: #f3f5fc;
+  border-radius: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  box-shadow: 2px 4px 5px 1px lightgray;
+`;
+
+const TabooWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  border-right: 1px solid #c4ccdc;
+  :last-child {
+    border: none;
+  }
 `;
 
-const CombinedTabooText = styled.div`
-  font-size: 18px;
-  color: #595959;
-`;
-
-const IngredientTitle = styled.div`
-  font-size: 22px;
+const TabooTitleText = styled.div`
+  font-size: 0.85rem;
   font-weight: bold;
   color: #595959;
-  margin-top: 20px;
+  margin-bottom: 0.3rem;
 `;
 
-const IngredientList = styled.div`
-  background-color: #d2e9ff;
-  width: 80%;
-  height: 25%;
-  margin-top: 20px;
-`;
-
-const IngredientText = styled.div`
-  font-size: 18px;
-  color: #595959;
-`;
-
-const OthersView = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 75%;
-`;
-
-const CompanyTitleText = styled.div`
+const TabooInfoText = styled.div`
+  font-size: 0.7rem;
   font-weight: bold;
-  font-size: 22px;
-  color: #595959;
-  margin-top: 20px;
-`;
-
-const CompanyText = styled.div`
-  font-size: 18px;
-  color: #595959;
-  margin-top: 20px;
-`;
-
-const CostTitleText = styled.div`
-  font-weight: bold;
-  font-size: 22px;
-  color: #595959;
-  margin-top: 20px;
-`;
-
-const CostText = styled.div`
-  font-size: 18px;
-  color: #595959;
-  margin-top: 20px;
+  color: #929292;
 `;
 
 const Medicine = () => {
@@ -132,16 +135,26 @@ const Medicine = () => {
     medicineInfoCases: [],
   };
   const [details, setDetails] = useState(defaultObject);
+  const [ingredientClicked, setIngredientClicked] = useState(false);
+  const [kpicClicked, setKpicClicked] = useState(false);
+
   useEffect(() => {
     const getMedicineDetailData = async () => {
       const detailsData = await getMedicineDetail(
         Number(router.query.medicineId),
       );
-      console.log('detailData', detailsData);
       setDetails(detailsData);
     };
     getMedicineDetailData();
   }, [router.query.medicineId]);
+
+  const handleIngredientClicked = () => {
+    setIngredientClicked(!ingredientClicked);
+  };
+
+  const handleKpicClicked = () => {
+    setKpicClicked(!kpicClicked);
+  };
 
   return (
     <>
@@ -149,51 +162,137 @@ const Medicine = () => {
         <MedicineDetailContainer>
           <MedicineNameText>{details.medicineName}</MedicineNameText>
           <MedicineInfoCaseContainer>
-            {details.medicineInfoCases.map((medicineInfoCase, idx) => (
-              <>
-                <EffectText key={idx}>
+            {details.medicineInfoCases.map((medicineInfoCase) => (
+              <div key={details.medicineId}>
+                <MedicineGroupText>
                   {medicineInfoCase.medicineGroup}
-                </EffectText>
-                <TabooTitleText>유의사항</TabooTitleText>
-                <TabooView>
-                  <DurInfoContainer>
-                    {medicineInfoCase.durInfos.map((durInfo) => (
-                      <>
-                        <TabooContainer>
-                          <AgeTabooText>연령금기</AgeTabooText>
-                          {durInfo.ageTaboo}
-                          <AgeTabooText></AgeTabooText>
-                        </TabooContainer>
-                        <TabooContainer>
-                          <CombinedTabooText>병용금기</CombinedTabooText>
-                          <CombinedTabooText>
-                            {durInfo.combinedTaboo}
-                          </CombinedTabooText>
-                        </TabooContainer>
-                      </>
-                    ))}
-                  </DurInfoContainer>
-                </TabooView>
-                <IngredientTitle>성분정보</IngredientTitle>
-                <IngredientList>
-                  {medicineInfoCase.ingredientInfos.map((ingredient, idx) => (
-                    <IngredientText key={idx}>
-                      {ingredient.ingredientName}
-                    </IngredientText>
+                </MedicineGroupText>
+                <CategoryTitle>성분정보</CategoryTitle>
+                <InfoList>
+                  {!ingredientClicked ? (
+                    <MedicineIngredientWrapper
+                      ingredientClicked={ingredientClicked}
+                    >
+                      <InfoWrapper>
+                        <InfoIdxText>{1}</InfoIdxText>
+                        <InfoText>
+                          {medicineInfoCase.ingredientInfos[0].ingredientName}
+                        </InfoText>
+                      </InfoWrapper>
+                      <IngredientIconButton
+                        size="small"
+                        style={{
+                          color: 'black',
+                          padding: 0,
+                        }}
+                        isOverOne={medicineInfoCase.ingredientInfos.length > 1}
+                        onClick={handleIngredientClicked}
+                      >
+                        <KeyboardArrowDownIcon />
+                      </IngredientIconButton>
+                    </MedicineIngredientWrapper>
+                  ) : (
+                    <MedicineIngredientWrapper
+                      ingredientClicked={ingredientClicked}
+                    >
+                      <MedicineIngredientInfos>
+                        {medicineInfoCase.ingredientInfos.map(
+                          (ingredient, idx) => (
+                            <MultiInfoWrapper key={idx}>
+                              <InfoIdxText>{idx + 1}</InfoIdxText>
+                              <InfoText>{ingredient.ingredientName}</InfoText>
+                            </MultiInfoWrapper>
+                          ),
+                        )}
+                      </MedicineIngredientInfos>
+                      <IngredientIconButton
+                        size="small"
+                        style={{
+                          color: 'black',
+                          padding: 0,
+                        }}
+                        isOverOne={medicineInfoCase.ingredientInfos.length > 1}
+                        onClick={handleIngredientClicked}
+                      >
+                        <KeyboardArrowUpIcon />
+                      </IngredientIconButton>
+                    </MedicineIngredientWrapper>
+                  )}
+                </InfoList>
+                <CategoryTitle>Kpic정보</CategoryTitle>
+                <InfoList>
+                  {medicineInfoCase.kpicInfos.length === 0 ? (
+                    <InfoText>없음</InfoText>
+                  ) : (
+                    <>
+                      {!kpicClicked ? (
+                        <MedicineKpictWrapper kpicClicked={kpicClicked}>
+                          <InfoWrapper>
+                            <InfoIdxText>{1}</InfoIdxText>
+                            <InfoText>
+                              {medicineInfoCase.kpicInfos[0].kpic}
+                            </InfoText>
+                          </InfoWrapper>
+                          <IngredientIconButton
+                            size="small"
+                            style={{
+                              color: 'black',
+                              padding: 0,
+                            }}
+                            isOverOne={medicineInfoCase.kpicInfos.length > 1}
+                            onClick={handleKpicClicked}
+                          >
+                            <KeyboardArrowDownIcon />
+                          </IngredientIconButton>
+                        </MedicineKpictWrapper>
+                      ) : (
+                        <MedicineKpictWrapper kpicClicked={kpicClicked}>
+                          <MedicineIngredientInfos>
+                            {medicineInfoCase.kpicInfos.map((kpic, idx) => (
+                              <MultiInfoWrapper key={idx}>
+                                <InfoIdxText>{idx + 1}</InfoIdxText>
+                                <InfoText>{kpic.kpic}</InfoText>
+                              </MultiInfoWrapper>
+                            ))}
+                          </MedicineIngredientInfos>
+                          <IngredientIconButton
+                            size="small"
+                            style={{
+                              color: 'black',
+                              padding: 0,
+                            }}
+                            isOverOne={medicineInfoCase.kpicInfos.length > 1}
+                            onClick={handleKpicClicked}
+                          >
+                            <KeyboardArrowUpIcon />
+                          </IngredientIconButton>
+                        </MedicineKpictWrapper>
+                      )}
+                    </>
+                  )}
+                </InfoList>
+                <CategoryTitle>유의사항</CategoryTitle>
+                <TabooContainer>
+                  {medicineInfoCase.durInfos.map((durInfo) => (
+                    <>
+                      <TabooWrapper>
+                        <TabooTitleText>연령금기</TabooTitleText>
+                        <TabooInfoText>{durInfo.ageTaboo}</TabooInfoText>
+                      </TabooWrapper>
+                      <TabooWrapper>
+                        <TabooTitleText>병용금기</TabooTitleText>
+                        <TabooInfoText>{durInfo.combinedTaboo}</TabooInfoText>
+                      </TabooWrapper>
+                      <TabooWrapper>
+                        <TabooTitleText>임부금기</TabooTitleText>
+                        <TabooInfoText>{durInfo.pregnantTaboo}</TabooInfoText>
+                      </TabooWrapper>
+                    </>
                   ))}
-                </IngredientList>
-
-                <OthersView>
-                  <div>
-                    <CompanyTitleText>형태</CompanyTitleText>
-                    <CompanyText>{medicineInfoCase.shape}</CompanyText>
-                  </div>
-                  <div>
-                    <CostTitleText>급여정보</CostTitleText>
-                    <CostText>{medicineInfoCase.payInfo}원</CostText>
-                  </div>
-                </OthersView>
-              </>
+                </TabooContainer>
+                <CategoryTitle>형태</CategoryTitle>
+                <InfoText>{medicineInfoCase.shape}</InfoText>
+              </div>
             ))}
           </MedicineInfoCaseContainer>
         </MedicineDetailContainer>
