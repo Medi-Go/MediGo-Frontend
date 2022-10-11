@@ -1,15 +1,13 @@
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import {
   MedicineType,
   DuplicatedMedicineCaseType,
 } from '../../interfaces/medicines';
 import {
   MedicineDetailContainer,
-  MedicineIconImage,
   MedicineName,
+  MedicineNameText,
   MedicineRemainCount,
-  PrescriptionIconImage,
   DuplicatedCaseDate,
   DuplicatedCaseMedicalName,
 } from './style';
@@ -31,35 +29,18 @@ const MedicineDetail = ({ medicine, duplicatedCase }: MedicineDetailProps) => {
     <>
       {!!medicine && (
         <MedicineDetailContainer onClick={goToDetail}>
-          <MedicineIconImage>
-            <Image
-              src={'/icon-192x192.png'}
-              width={40}
-              height={40}
-              alt={'medicineIcon'}
-            />
-          </MedicineIconImage>
-          <MedicineName>{medicine.medicineName}</MedicineName>
+          <MedicineName>
+            <MedicineNameText>{medicine.medicineName}</MedicineNameText>
+          </MedicineName>
           <MedicineRemainCount>{medicine.remainCount}</MedicineRemainCount>
         </MedicineDetailContainer>
       )}
       {!!duplicatedCase && (
         <MedicineDetailContainer>
-          <PrescriptionIconImage>
-            <Image
-              src={'/images/prescription.svg'}
-              width={40}
-              height={40}
-              alt={'medicineIcon'}
-            />
-          </PrescriptionIconImage>
           <DuplicatedCaseDate>{duplicatedCase.treatDate}</DuplicatedCaseDate>
           <DuplicatedCaseMedicalName>
             {duplicatedCase.treatMedicalName}
           </DuplicatedCaseMedicalName>
-          {/* <div>{duplicatedCase.totalDayCount}</div>
-          <div>{duplicatedCase.administerInterval}</div>
-          <div>{duplicatedCase.dailyCount}</div> */}
         </MedicineDetailContainer>
       )}
     </>
