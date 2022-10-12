@@ -92,14 +92,14 @@ const CalendarComponent = () => {
         <Button
           onClick={handleClickDataTypeBtn}
           variant="contained"
-          style={{ backgroundColor: '#385885' }}
+          style={{ backgroundColor: '#608fcb' }}
         >
           투약내역
         </Button>
         <Button
           onClick={handleClickDataTypeBtn}
           variant="contained"
-          style={{ backgroundColor: '#385885' }}
+          style={{ backgroundColor: '#608fcb' }}
         >
           진료내역
         </Button>

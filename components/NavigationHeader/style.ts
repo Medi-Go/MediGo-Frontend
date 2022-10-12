@@ -14,6 +14,7 @@ export const NavContainer = styled.nav`
 export const MenuWrapper = styled.div`
   display: flex;
   align-items: center;
+  margin-left: 0.8rem;
 `;
 
 export const HeaderContainer = styled.div`
@@ -48,7 +49,7 @@ export const LoginWrapper = styled.div`
 export const ProfileWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding-right: 1rem;
+  padding-right: 1.5rem;
 `;
 
 export const ProfileText = styled.a`

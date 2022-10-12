@@ -80,7 +80,7 @@ const Profile = () => {
       <EditBtn
         onClick={handleMoveProfileEditPage}
         variant="contained"
-        style={{ backgroundColor: '#89b0e1' }}
+        style={{ backgroundColor: '#608fcb' }}
       >
         회원정보 수정
       </EditBtn>
