@@ -29,20 +29,12 @@ const MyDataUpdateWrapper = styled.div`
   padding: 0.5rem;
 `;
 const MyDataUpdateTitle = styled.div`
-  font-size: 16px;
+  font-size: 0.9rem;
   font-weight: bold;
 `;
 const MyDataUpdateInfo = styled.div`
   font-size: 14px;
   margin-top: 0.5rem;
-`;
-
-const EditBtnContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 70%;
-  justify-content: space-between;
-  margin-top: 3rem;
 `;
 
 const UserName = styled.div`

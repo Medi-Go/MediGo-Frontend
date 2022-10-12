@@ -49,7 +49,7 @@ export const LoginWrapper = styled.div`
 export const ProfileWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding-right: 1.5rem;
+  padding-right: 1.8rem;
 `;
 
 export const ProfileText = styled.a`
