@@ -1,17 +1,13 @@
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import {
   MedicineType,
   DuplicatedMedicineCaseType,
 } from '../../interfaces/medicines';
 import {
   MedicineDetailContainer,
-  MedicineIconImage,
-  MedicineName,
-  MedicineRemainCount,
-  PrescriptionIconImage,
-  DuplicatedCaseDate,
-  DuplicatedCaseMedicalName,
+  DetailName,
+  DetailNameText,
+  DetailNumberText,
 } from './style';
 
 interface MedicineDetailProps {
@@ -29,37 +25,20 @@ const MedicineDetail = ({ medicine, duplicatedCase }: MedicineDetailProps) => {
   };
   return (
     <>
-      {!!medicine && (
+      {medicine && (
         <MedicineDetailContainer onClick={goToDetail}>
-          <MedicineIconImage>
-            <Image
-              src={'/icon-192x192.png'}
-              width={40}
-              height={40}
-              alt={'medicineIcon'}
-            />
-          </MedicineIconImage>
-          <MedicineName>{medicine.medicineName}</MedicineName>
-          <MedicineRemainCount>{medicine.remainCount}</MedicineRemainCount>
+          <DetailName>
+            <DetailNameText>{medicine.medicineName}</DetailNameText>
+          </DetailName>
+          <DetailNumberText>{medicine.remainCount}</DetailNumberText>
         </MedicineDetailContainer>
       )}
-      {!!duplicatedCase && (
+      {duplicatedCase && (
         <MedicineDetailContainer>
-          <PrescriptionIconImage>
-            <Image
-              src={'/images/prescription.svg'}
-              width={40}
-              height={40}
-              alt={'medicineIcon'}
-            />
-          </PrescriptionIconImage>
-          <DuplicatedCaseDate>{duplicatedCase.treatDate}</DuplicatedCaseDate>
-          <DuplicatedCaseMedicalName>
-            {duplicatedCase.treatMedicalName}
-          </DuplicatedCaseMedicalName>
-          {/* <div>{duplicatedCase.totalDayCount}</div>
-          <div>{duplicatedCase.administerInterval}</div>
-          <div>{duplicatedCase.dailyCount}</div> */}
+          <DetailName>
+            <DetailNameText>{duplicatedCase.treatMedicalName}</DetailNameText>
+          </DetailName>
+          <DetailNumberText>{duplicatedCase.treatDate}</DetailNumberText>
         </MedicineDetailContainer>
       )}
     </>
