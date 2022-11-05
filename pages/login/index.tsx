@@ -31,12 +31,13 @@ const BtnWrapper = styled.div`
 
 const GoogleLoginBtn = styled.button`
   border-radius: 10px;
-  border: 1px solid black;
+  border: 2px solid #d6dfef;
   width: 80%;
   height: 40px;
   background-color: white;
   font-weight: bold;
   font-size: 16px;
+  color: #385885;
 `;
 
 const Login = () => {
@@ -59,7 +60,7 @@ const Login = () => {
             router.push('http://www.medigo.p-e.kr/oauth2/authorization/google');
           }}
         >
-          구글로 시작하기
+          Google Login
         </GoogleLoginBtn>
       </BtnWrapper>
     </LoginPageContainer>

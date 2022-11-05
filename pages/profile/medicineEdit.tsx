@@ -146,7 +146,7 @@ const MedicineEdit = () => {
   };
 
   return (
-    <PrescriptionFrom onSubmit={handleSubmit}>
+    <PrescriptionFrom>
       <PrescriptionsContainer>
         {prescriptions.map((prescription) => (
           <PrescriptionContainer key={prescription.prescriptionId}>
@@ -213,7 +213,7 @@ const MedicineEdit = () => {
           달 입력
         </Button>
         <Button
-          type="submit"
+          onClick={handleSubmit}
           variant="contained"
           style={{ backgroundColor: '#608fcb' }}
         >
